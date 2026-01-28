@@ -16,31 +16,31 @@ const cards: CardItem[] = [
     id: 1,
     title: "Project 1",
     description: "write something hsidfgsiaf",
-    color: "#e74c3c",
+    color: "#1A313A",
   },
   {
     id: 2,
     title: "Project 2",
     description: "write something hsidfgsiaf",
-    color: "#3498db",
+    color: "#225060",
   },
   {
     id: 3,
     title: "Project 3",
     description: "write something hsidfgsiaf",
-    color: "#2ecc71",
+    color: "#277188",
   },
   {
     id: 4,
     title: "Project 4",
     description: "write something hsidfgsiaf",
-    color: "#9b59b6",
+    color: "#2994B3",
   },
   {
     id: 5,
     title: "Contact me",
     description: "write something hsidfgsiaf",
-    color: "#f39c12",
+    color: "#28B8E0",
   },
 ];
 

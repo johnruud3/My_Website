@@ -8,39 +8,33 @@ interface SlideItem {
   id: number;
   title: string;
   image: string;
-  color: string;
 }
 
 const slides: SlideItem[] = [
   {
     id: 1,
     title: "Project One",
-    image: "/images/project1.jpg",
-    color: "#e74c3c",
+    image: "/img/boat-design-1.png"
   },
   {
     id: 2,
     title: "Project Two",
-    image: "/images/project2.jpg",
-    color: "#3498db",
+    image: "/images/project2.jpg"
   },
   {
     id: 3,
     title: "Project Three",
-    image: "/images/project3.jpg",
-    color: "#2ecc71",
+    image: "/images/project3.jpg"
   },
   {
     id: 4,
     title: "Project Four",
-    image: "/images/project4.jpg",
-    color: "#9b59b6",
+    image: "/images/project4.jpg"
   },
   {
     id: 5,
     title: "Project Five",
-    image: "/images/project5.jpg",
-    color: "#f39c12",
+    image: "/images/project5.jpg"
   },
 ];
 
@@ -156,7 +150,7 @@ export default function ImageSlider() {
             >
               <div
                 className={styles.card}
-                style={{ backgroundColor: slide.color }}
+                style={{ backgroundImage: `url(${slide.image})` }}
                 onClick={() => goToSlide(index)}
               >
                 <div className={styles.cardInner}>
