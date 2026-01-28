@@ -159,7 +159,7 @@ export default function ImageSlider() {
               </div>
               <div
                 className={styles.cardReflection}
-                style={{ backgroundColor: slide.color }}
+                style={{ backgroundImage: `url(${slide.image})` }}
               />
             </div>
           ))}
