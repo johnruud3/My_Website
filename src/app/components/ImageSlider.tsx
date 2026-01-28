@@ -8,18 +8,22 @@ interface SlideItem {
   id: number;
   title: string;
   image: string;
+  backgroundSize?: 'cover' | 'contain' | '100% 100%' | 'auto' | '50% 50%';
+  backgroundPosition?: string;
 }
 
 const slides: SlideItem[] = [
   {
     id: 1,
     title: "Project One",
-    image: "/img/boat-design-1.png"
+    image: "/img/boat-design-1.png",
+    backgroundSize: "cover"
   },
   {
     id: 2,
     title: "Project Two",
-    image: "/images/project2.jpg"
+    image: "/img/IG-mockup.png",
+    backgroundSize: "contain"
   },
   {
     id: 3,
@@ -150,7 +154,11 @@ export default function ImageSlider() {
             >
               <div
                 className={styles.card}
-                style={{ backgroundImage: `url(${slide.image})` }}
+                style={{
+                  backgroundImage: `url(${slide.image})`,
+                  backgroundSize: slide.backgroundSize || 'cover',
+                  backgroundPosition: slide.backgroundPosition || 'center'
+                }}
                 onClick={() => goToSlide(index)}
               >
                 <div className={styles.cardInner}>
