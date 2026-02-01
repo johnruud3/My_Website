@@ -183,7 +183,7 @@ export default function StackingCards() {
             {card.image ? (
               <div className={styles.cardContent}>
                 <div className={styles.cardImageWrapper}>
-                  <img src={card.image} alt={card.title} className={styles.cardImage} />
+                  <img src={card.image} alt={`Project ${card.id}`} className={styles.cardImage} />
                 </div>
                 <div className={styles.cardTextWrapper}>
                   <h2 className={styles.cardTitle}>{card.title}</h2>
