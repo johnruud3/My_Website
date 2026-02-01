@@ -1,5 +1,6 @@
 import ImageSlider from "./components/ImageSlider";
 import StackingCards from "./components/StackingCards";
+import styles from "./components/StackingCards.module.css";
 
 export default function Home() {
   return (
@@ -63,7 +64,12 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="h-2" />
+        <div className={styles.scrollIndicator}>
+          <p className={styles.scrollText}>my work</p>
+          <svg className={styles.scrollArrow} viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
 
         <ImageSlider />
         <div className="mb-32"></div>

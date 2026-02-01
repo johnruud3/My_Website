@@ -132,7 +132,7 @@ export default function ImageSlider() {
 
   return (
     <section className={styles.main}>
-      <h2 className={styles.main__heading}>My Work</h2>
+      <h2 className={styles.main__heading}></h2>
 
       <div
         className={styles.carouselContainer}
