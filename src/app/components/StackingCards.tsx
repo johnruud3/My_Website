@@ -9,38 +9,40 @@ interface CardItem {
   title: string;
   description: string;
   color: string;
+  image?: string;
 }
 
 const cards: CardItem[] = [
   {
     id: 1,
     title: "Project 1",
-    description: "write something hsidfgsiaf",
-    color: "#1A313A",
+    description: "A modern web application built with cutting-edge technologies. This project showcases innovative design patterns and seamless user experience.",
+    color: "linear-gradient(135deg, #050b16, #146C82, #050b16)",
+    image: "/img/portrett1.jpg",
   },
   {
     id: 2,
     title: "Project 2",
     description: "write something hsidfgsiaf",
-    color: "#225060",
+    color: "linear-gradient(135deg, #050b16, #146C82, #050b16)",
   },
   {
     id: 3,
     title: "Project 3",
     description: "write something hsidfgsiaf",
-    color: "#277188",
+    color: "linear-gradient(135deg, #050b16, #146C82, #050b16)",
   },
   {
     id: 4,
     title: "Project 4",
     description: "write something hsidfgsiaf",
-    color: "#2994B3",
+    color: "linear-gradient(135deg, #050b16, #146C82, #050b16)",
   },
   {
     id: 5,
     title: "Contact me",
     description: "write something hsidfgsiaf",
-    color: "#28B8E0",
+    color: "linear-gradient(135deg, #050b16, #146C82, #050b16)",
   },
 ];
 
@@ -166,14 +168,28 @@ export default function StackingCards() {
             ref={(el) => { cardsRef.current[index] = el; }}
             className={`${styles.card} ${index < currentPage ? styles.cardStacked : ""}`}
             style={{
-              backgroundColor: card.color,
+              background: card.color,
               zIndex: index + 1,
               cursor: index < currentPage ? "pointer" : "default",
             }}
             onClick={() => index < currentPage && handleCardClick(index)}
           >
-            <h2 className={styles.cardTitle}>{card.title}</h2>
-            <p className={styles.cardDescription}>{card.description}</p>
+            {card.image ? (
+              <div className={styles.cardContent}>
+                <div className={styles.cardImageWrapper}>
+                  <img src={card.image} alt={card.title} className={styles.cardImage} />
+                </div>
+                <div className={styles.cardTextWrapper}>
+                  <h2 className={styles.cardTitle}>{card.title}</h2>
+                  <p className={styles.cardDescription}>{card.description}</p>
+                </div>
+              </div>
+            ) : (
+              <>
+                <h2 className={styles.cardTitle}>{card.title}</h2>
+                <p className={styles.cardDescription}>{card.description}</p>
+              </>
+            )}
           </div>
         ))}
       </div>
