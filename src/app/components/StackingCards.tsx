@@ -6,8 +6,8 @@ import styles from "./StackingCards.module.css";
 
 interface CardItem {
   id: number;
-  title: string;
-  description: string;
+  title: string | React.ReactNode;
+  description: string | React.ReactNode;
   color: string;
   image?: string;
 }
@@ -15,8 +15,10 @@ interface CardItem {
 const cards: CardItem[] = [
   {
     id: 1,
-    title: "Project 1",
-    description: "A modern web application built with cutting-edge technologies. This project showcases innovative design patterns and seamless user experience.",
+    title: <> My name is <span style={{ color: '#34C1E3' }}> John</span> </>,
+    description:
+      <>jdsjsdfsdf</>
+    ,
     color: "linear-gradient(135deg, #050b16, #146C82, #050b16)",
     image: "/img/portrett1.jpg",
   },
@@ -90,8 +92,9 @@ export default function StackingCards() {
     if (!container) return;
 
     let scrollAccumulator = 0;
-    const scrollThreshold = 100; // User needs to scroll this much to trigger page change
+    const scrollThreshold = 200; // User needs to scroll this much to trigger page change
     let lastScrollTime = Date.now();
+    let animationLockUntil = 0;
 
     const handleWheel = (e: WheelEvent) => {
       // Check if we're in the stacking section
@@ -103,29 +106,32 @@ export default function StackingCards() {
 
       e.preventDefault();
 
-      // Prevent scroll while animating
-      if (isAnimating.current) {
+      // Prevent scroll while animating or during lock period
+      const now = Date.now();
+      if (isAnimating.current || now < animationLockUntil) {
+        scrollAccumulator = 0;
         return;
       }
 
       // Reset accumulator if too much time passed
-      const now = Date.now();
-      if (now - lastScrollTime > 200) {
+      if (now - lastScrollTime > 300) {
         scrollAccumulator = 0;
       }
       lastScrollTime = now;
 
-      // Accumulate scroll
-      scrollAccumulator += e.deltaY;
+      // Accumulate scroll with less dampening
+      scrollAccumulator += e.deltaY * 0.8;
 
       // Check if threshold reached
       if (scrollAccumulator > scrollThreshold && currentPage < totalCards - 1) {
         scrollAccumulator = 0;
         isAnimating.current = true;
+        animationLockUntil = Date.now() + 1000; // Lock for 1 second
         setCurrentPage((prev) => prev + 1);
       } else if (scrollAccumulator < -scrollThreshold && currentPage > 0) {
         scrollAccumulator = 0;
         isAnimating.current = true;
+        animationLockUntil = Date.now() + 1000; // Lock for 1 second
         setCurrentPage((prev) => prev - 1);
       } else if (scrollAccumulator < -scrollThreshold && currentPage === 0) {
         // Allow scrolling up past the section when on first page
@@ -183,11 +189,29 @@ export default function StackingCards() {
                   <h2 className={styles.cardTitle}>{card.title}</h2>
                   <p className={styles.cardDescription}>{card.description}</p>
                 </div>
+                {/* Scroll indicator for first card */}
+                {index === 0 && currentPage === 0 && (
+                  <div className={styles.scrollIndicator}>
+                    <p className={styles.scrollText}>Scroll for more</p>
+                    <svg className={styles.scrollArrow} viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                )}
               </div>
             ) : (
               <>
                 <h2 className={styles.cardTitle}>{card.title}</h2>
                 <p className={styles.cardDescription}>{card.description}</p>
+                {/* Scroll indicator for first card */}
+                {index === 0 && currentPage === 0 && (
+                  <div className={styles.scrollIndicator}>
+                    <p className={styles.scrollText}>Scroll for more</p>
+                    <svg className={styles.scrollArrow} viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                )}
               </>
             )}
           </div>

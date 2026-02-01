@@ -113,16 +113,16 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  border: 2px solid #333;
+  border: 2px solid #0F4C5C;
   background: transparent;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .dot:hover {
-  background: #666;
+  background: #34C1E3;
 }
 
 .dotActive {
-  background: #333;
+  background: #34C1E3;
 }
