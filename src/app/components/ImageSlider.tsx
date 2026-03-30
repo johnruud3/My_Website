@@ -8,37 +8,43 @@ interface SlideItem {
   id: number;
   title: string;
   image: string;
-  backgroundSize?: 'cover' | 'contain' | '100% 100%' | 'auto' | '50% 50%';
+  backgroundSize?: string;
   backgroundPosition?: string;
+  backgroundColor?: string;
 }
 
 const slides: SlideItem[] = [
   {
     id: 1,
-    title: "Project One",
-    image: "/img/boat-design-1.png",
-    backgroundSize: "cover"
+    title: "Matboksen my app for food",
+    image: "/img/matboksen.png",
+    backgroundSize: "80% auto",
+    backgroundColor: "#6130C0",
   },
   {
     id: 2,
-    title: "Project Two",
-    image: "/img/IG-mockup.png",
-    backgroundSize: "contain"
+    title: "My first big logo design",
+    image: "/img/joblaunchLogo.jpg",
+    backgroundSize: "70% auto",
   },
   {
     id: 3,
-    title: "Project Three",
-    image: "/images/project3.jpg"
+    title: "Treoppdrag my first big website",
+    image: "/img/post-3.png",
+    backgroundSize: "cover",
   },
   {
     id: 4,
-    title: "Project Four",
-    image: "/images/project4.jpg"
+    title: "Nordmind AI helper for businesses",
+    image: "/img/nordmind.png",
+    backgroundSize: "80% auto",
+    backgroundColor: "#2F3A46",
   },
   {
     id: 5,
-    title: "Project Five",
-    image: "/images/project5.jpg"
+    title: "Projects in progress",
+    image: "/images/project5.jpg",
+    backgroundColor: "#2F3A46",
   },
 ];
 
@@ -93,7 +99,10 @@ export default function ImageSlider() {
 
     const deltaX = e.clientX - dragStartX.current;
     const indexChange = Math.round(-deltaX / 100);
-    const newIndex = Math.max(0, Math.min(cardCount - 1, startIndex.current + indexChange));
+    const newIndex = Math.max(
+      0,
+      Math.min(cardCount - 1, startIndex.current + indexChange),
+    );
 
     if (newIndex !== activeIndex) {
       setActiveIndex(newIndex);
@@ -115,7 +124,10 @@ export default function ImageSlider() {
 
     const deltaX = e.touches[0].clientX - dragStartX.current;
     const indexChange = Math.round(-deltaX / 100);
-    const newIndex = Math.max(0, Math.min(cardCount - 1, startIndex.current + indexChange));
+    const newIndex = Math.max(
+      0,
+      Math.min(cardCount - 1, startIndex.current + indexChange),
+    );
 
     if (newIndex !== activeIndex) {
       setActiveIndex(newIndex);
@@ -149,15 +161,18 @@ export default function ImageSlider() {
           {slides.map((slide, index) => (
             <div
               key={slide.id}
-              ref={(el) => { cardRefs.current[index] = el; }}
+              ref={(el) => {
+                cardRefs.current[index] = el;
+              }}
               className={styles.cardWrapper}
             >
               <div
                 className={styles.card}
                 style={{
                   backgroundImage: `url(${slide.image})`,
-                  backgroundSize: slide.backgroundSize || 'cover',
-                  backgroundPosition: slide.backgroundPosition || 'center'
+                  backgroundSize: slide.backgroundSize || "contain",
+                  backgroundPosition: slide.backgroundPosition || "center",
+                  backgroundColor: slide.backgroundColor,
                 }}
                 onClick={() => goToSlide(index)}
               >
@@ -167,7 +182,10 @@ export default function ImageSlider() {
               </div>
               <div
                 className={styles.cardReflection}
-                style={{ backgroundImage: `url(${slide.image})` }}
+                style={{
+                  backgroundImage: `url(${slide.image})`,
+                  backgroundColor: slide.backgroundColor,
+                }}
               />
             </div>
           ))}
