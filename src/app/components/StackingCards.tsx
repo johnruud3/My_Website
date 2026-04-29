@@ -8,6 +8,7 @@ import styles from "./StackingCards.module.css";
 type MediaImageItem = {
   src: string;
   objectFit?: "cover" | "contain";
+  objectPosition?: string;
 };
 
 interface CardItem {
@@ -105,13 +106,17 @@ const cards: CardItem[] = [
     id: 6,
     title: "Elite Rollespill",
     description:
-      "Elite Rollespill is a roleplay server for the game Grand Theft Auto 5. It is a server that allows players to roleplay in the game. It is a server where the ingame world is made out to be Oslo in Norway. Hardcore roleplay in norwegian and everything is immersed down to the street signs and names on the street signs. Even the buildings have the real original names on them. This is an ambitious project. And we have a strong team of developers and designers working on it.",
+      "Elite Rollespill is a roleplay server for the game Grand Theft Auto 5. It is a server that allows players to roleplay in the game. It is a server where the ingame world is made out to be Oslo in Norway. Hardcore roleplay in norwegian and everything is immersed down to the street signs and names on the street signs. Even the buildings have the real original names on them. This is an ambitious project. And we have a strong team of developers and designers working on it. \n\n Elite Rollespill is created with lua script and mysql database.",
     color: "linear-gradient(135deg, #050b16, #146C82, #050b16)",
     link: "https://eliterollespill.no",
     images: [
       { src: "/img/eliterollespill.png", objectFit: "contain" },
       { src: "/img/eliterollespill2.png", objectFit: "cover" },
-      { src: "/img/eliterollespill3.png", objectFit: "cover" },
+      {
+        src: "/img/eliterollespill3.png",
+        objectFit: "cover",
+        objectPosition: "left center",
+      },
       { src: "/img/eliterollespill4.png", objectFit: "cover" },
     ],
     mediaGridModifier: "eliterollespill",
@@ -384,8 +389,15 @@ export default function StackingCards() {
                             alt={`${typeof card.title === "string" ? card.title : "Project"} image ${mediaIndex + 1}`}
                             className={styles.cardMediaImage}
                             style={
-                              item.objectFit
-                                ? { objectFit: item.objectFit }
+                              item.objectFit || item.objectPosition
+                                ? {
+                                    ...(item.objectFit
+                                      ? { objectFit: item.objectFit }
+                                      : {}),
+                                    ...(item.objectPosition
+                                      ? { objectPosition: item.objectPosition }
+                                      : {}),
+                                  }
                                 : undefined
                             }
                           />
