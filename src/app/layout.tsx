@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Footer from "./components/Footer";
+import SiteHeader from "./components/SiteHeader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
+        <SiteHeader />
         {children}
+        <Footer />
       </body>
     </html>
   );

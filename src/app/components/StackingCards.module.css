@@ -105,6 +105,11 @@
   object-fit: cover;
 }
 
+/* NordMind — nudge whole 2x2 media grid left */
+.cardMediaGrid_nordmind {
+  transform: translateX(-24px);
+}
+
 .cardMediaItem {
   overflow: hidden;
   border-radius: 12px;

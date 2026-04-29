@@ -28,7 +28,7 @@ export default function Footer() {
                   href="#"
                   className="text-gray-400 hover:text-[#34C1E3] text-sm transition-colors"
                 >
-                  New projects
+                  Projects Overview
                 </a>
               </li>
               <li>

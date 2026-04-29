@@ -1,48 +1,11 @@
 import ImageSlider from "./components/ImageSlider";
 import StackingCards from "./components/StackingCards";
-import Footer from "./components/Footer";
 import styles from "./components/StackingCards.module.css";
 
 export default function Home() {
   return (
-    <>
-      <header className="fixed top-0 left-0 right-0 z-50 w-full py-4 md:py-6 px-4 md:px-8 bg-gradient-to-r from-[#050b16]/95 via-[#146C82]/95 to-[#050b16]/95 backdrop-blur-sm border-b border-[#34C1E3]/20">
-        <div className="max-w-screen-xl mx-auto">
-          {/* Mobile: Stack vertically, Desktop: Absolute positioning */}
-          <div className="flex md:relative flex-col md:flex-row items-center justify-center gap-3 md:gap-0">
-            {/* Profile - Hidden on mobile, shown on desktop */}
-            <div className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 items-center gap-3">
-              <img
-                src="/img/portrett1.jpg"
-                alt="John"
-                className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-[#34C1E3] shadow-lg"
-              />
-              <span className="text-white text-xs md:text-sm font-medium">
-                John-Kristian G. Ruud
-              </span>
-            </div>
-            
-            {/* Navigation - Centered on all screens */}
-            <nav className="flex justify-center gap-6 md:gap-12">
-              <a
-                href="/projects"
-                className="text-[#34C1E3] text-xs md:text-sm font-medium hover:text-[#146C82] transition-colors"
-              >
-                New projects
-              </a>
-              <a
-                href="/contact"
-                className="text-[#34C1E3] text-xs md:text-sm font-medium hover:text-[#146C82] transition-colors"
-              >
-                Contact
-              </a>
-            </nav>
-          </div>
-        </div>
-      </header>
-
-      <div className="min-h-screen bg-main font-sans pt-20 md:pt-24">
-        <main className="w-full">
+    <div className="min-h-screen bg-main font-sans pt-20 md:pt-24">
+      <main className="w-full">
           <div className="flex flex-col w-full items-center justify-center min-h-screen relative overflow-hidden">
             {/* Animated background lines */}
             <div className="absolute inset-0 pointer-events-none">
@@ -132,9 +95,7 @@ export default function Home() {
           <ImageSlider />
           <div className="mb-32"></div>
           <StackingCards />
-        </main>
-        <Footer />
-      </div>
-    </>
+      </main>
+    </div>
   );
 }

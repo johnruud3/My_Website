@@ -20,7 +20,11 @@ interface CardItem {
   /** Plain strings use card / grid CSS; objects let you set `objectFit` per image. */
   images?: Array<string | MediaImageItem>;
   /** Optional: extra styles for this card’s image grid only (see CSS module). */
-  mediaGridModifier?: "joblaunch" | "treoppdrag" | "eliterollespill";
+  mediaGridModifier?:
+    | "joblaunch"
+    | "treoppdrag"
+    | "eliterollespill"
+    | "nordmind";
   link?: string;
 }
 
@@ -42,6 +46,7 @@ function mediaGridClassName(modifier: CardItem["mediaGridModifier"]): string {
   if (modifier === "treoppdrag") return styles.cardMediaGrid_treoppdrag;
   if (modifier === "eliterollespill")
     return styles.cardMediaGrid_eliterollespill;
+  if (modifier === "nordmind") return styles.cardMediaGrid_nordmind;
   return "";
 }
 
@@ -133,7 +138,7 @@ const cards: CardItem[] = [
       { src: "/img/landing_nordmind.png", objectFit: "cover" },
       { src: "/img/dashboard2_nordmind.png", objectFit: "contain" },
     ],
-    mediaGridModifier: "treoppdrag",
+    mediaGridModifier: "nordmind",
   },
 ];
 
