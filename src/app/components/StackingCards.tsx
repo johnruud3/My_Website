@@ -199,6 +199,12 @@ export default function StackingCards() {
         return;
       }
       
+      // If footer has been revealed, don't hijack scroll anymore
+      if (hasReachedLastCard.current) {
+        scrollAccumulator = 0;
+        return;
+      }
+      
       // Section is in view - LOCK SCROLL (prevent default)
       e.preventDefault();
 
