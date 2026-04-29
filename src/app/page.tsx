@@ -25,7 +25,7 @@ export default function Home() {
             {/* Navigation - Centered on all screens */}
             <nav className="flex justify-center gap-6 md:gap-12">
               <a
-                href="#"
+                href="/projects"
                 className="text-[#34C1E3] text-xs md:text-sm font-medium hover:text-[#146C82] transition-colors"
               >
                 New projects

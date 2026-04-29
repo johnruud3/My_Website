@@ -16,7 +16,7 @@ interface SlideItem {
 const slides: SlideItem[] = [
   {
     id: 1,
-    title: "Matboksen my app for food",
+    title: "Matboksen my food tracking app",
     image: "/img/matboksen.png",
     backgroundSize: "80% auto",
     backgroundColor: "#6130C0",

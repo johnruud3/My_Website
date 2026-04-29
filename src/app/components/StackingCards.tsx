@@ -289,6 +289,19 @@ export default function StackingCards() {
 
   const handleCardClick = (index: number) => {
     if (isAnimating.current || index === currentPage) return;
+    
+    // If clicking on first card, reset everything
+    if (index === 0) {
+      hasReachedLastCard.current = false;
+      hasScrolledToFooter.current = false;
+      
+      // Hide footer
+      const footer = document.querySelector('footer');
+      if (footer) {
+        (footer as HTMLElement).style.display = 'none';
+      }
+    }
+    
     isAnimating.current = true;
     setCurrentPage(index);
   };
