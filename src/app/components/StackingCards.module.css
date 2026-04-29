@@ -96,6 +96,15 @@
   min-height: 0;
 }
 
+/* Elite Rollespill — custom styling for this card */
+.cardMediaGrid_eliterollespill .cardMediaItem {
+  background: transparent;
+}
+
+.cardMediaGrid_eliterollespill .cardMediaImage {
+  object-fit: cover;
+}
+
 .cardMediaItem {
   overflow: hidden;
   border-radius: 12px;

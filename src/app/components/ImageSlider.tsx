@@ -42,8 +42,9 @@ const slides: SlideItem[] = [
   },
   {
     id: 5,
-    title: "Projects in progress",
-    image: "/images/project5.jpg",
+    title: "Elite Rollespill",
+    image: "/img/eliterollespill.png",
+    backgroundSize: "180% auto",
     backgroundColor: "#2F3A46",
   },
 ];

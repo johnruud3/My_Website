@@ -19,7 +19,7 @@ interface CardItem {
   /** Plain strings use card / grid CSS; objects let you set `objectFit` per image. */
   images?: Array<string | MediaImageItem>;
   /** Optional: extra styles for this card’s image grid only (see CSS module). */
-  mediaGridModifier?: "joblaunch" | "treoppdrag";
+  mediaGridModifier?: "joblaunch" | "treoppdrag" | "eliterollespill";
   link?: string;
 }
 
@@ -39,6 +39,8 @@ function normalizeMediaItems(
 function mediaGridClassName(modifier: CardItem["mediaGridModifier"]): string {
   if (modifier === "joblaunch") return styles.cardMediaGrid_joblaunch;
   if (modifier === "treoppdrag") return styles.cardMediaGrid_treoppdrag;
+  if (modifier === "eliterollespill")
+    return styles.cardMediaGrid_eliterollespill;
   return "";
 }
 
@@ -100,8 +102,23 @@ const cards: CardItem[] = [
     mediaGridModifier: "treoppdrag",
   },
   {
+    id: 6,
+    title: "Elite Rollespill",
+    description:
+      "Elite Rollespill is a roleplay server for the game Grand Theft Auto 5. It is a server that allows players to roleplay in the game. It is a server where the ingame world is made out to be Oslo in Norway. Hardcore roleplay in norwegian and everything is immersed down to the street signs and names on the street signs. Even the buildings have the real original names on them. This is an ambitious project. And we have a strong team of developers and designers working on it.",
+    color: "linear-gradient(135deg, #050b16, #146C82, #050b16)",
+    link: "https://eliterollespill.no",
+    images: [
+      { src: "/img/eliterollespill.png", objectFit: "contain" },
+      { src: "/img/eliterollespill2.png", objectFit: "cover" },
+      { src: "/img/eliterollespill3.png", objectFit: "cover" },
+      { src: "/img/eliterollespill4.png", objectFit: "cover" },
+    ],
+    mediaGridModifier: "eliterollespill",
+  },
+  {
     id: 5,
-    title: "NordMind",
+    title: "NordMind", //VELDIG VIKTIG. ALDRI BYTT UT ELLER LEGG TIL SIDER ETTER DENNE!!! ETTER CARD 5 STOPPER PROSSESSEN HELT TIL CARD 1 ER TILBAKE.
     description:
       "NordMind is a web application designed to simplify how users manage emails, schedules, and team communication. By integrating with tools like Google Mail and Google Calendar, it brings messages, planning, and tasks into one structured system. A built-in AI assistant can help write emails, create calendar plans, and automate routine actions. NordMind can also forward important updates from emails to team platforms through an approval-based system, keeping communication clear and relevant. The platform is flexible and customizable to fit different workflows. The platform will also include AI-driven insights that analyze similar platforms and online content to suggest improvements, helping users keep their websites relevant and optimized for search visibility. It will be able to generate blog posts and content ideas automatically, with user approval before publishing. NordMind is currently in development, with ongoing work focused on smarter automation, content optimization, and AI-assisted workflows. \n\n Nordmind.no is created with next.js",
     color: "linear-gradient(135deg, #050b16, #146C82, #050b16)",
@@ -147,13 +164,16 @@ export default function StackingCards() {
           onComplete: () => {
             if (index === currentPage) {
               isAnimating.current = false;
-              
+
               // Show footer when card 5 is reached
-              if (currentPage === totalCards - 1 && !hasReachedLastCard.current) {
+              if (
+                currentPage === totalCards - 1 &&
+                !hasReachedLastCard.current
+              ) {
                 hasReachedLastCard.current = true;
-                const footer = document.querySelector('footer');
+                const footer = document.querySelector("footer");
                 if (footer) {
-                  (footer as HTMLElement).style.display = 'block';
+                  (footer as HTMLElement).style.display = "block";
                 }
               }
             }
@@ -185,26 +205,26 @@ export default function StackingCards() {
 
     const handleWheel = (e: WheelEvent) => {
       const rect = container.getBoundingClientRect();
-      
+
       // Section hasn't been reached yet (still above)
       if (rect.top > 0) {
         scrollAccumulator = 0;
         hasScrolledToFooter.current = false; // Reset flag when returning to section
         return; // Allow normal scroll to reach it
       }
-      
+
       // If we've already scrolled to footer, release control entirely
       if (hasScrolledToFooter.current) {
         scrollAccumulator = 0;
         return;
       }
-      
+
       // If footer has been revealed, don't hijack scroll anymore
       if (hasReachedLastCard.current) {
         scrollAccumulator = 0;
         return;
       }
-      
+
       // Section is in view - LOCK SCROLL (prevent default)
       e.preventDefault();
 
@@ -236,7 +256,10 @@ export default function StackingCards() {
           // ONLY on last card - allow scroll to footer
           scrollAccumulator = 0;
           hasScrolledToFooter.current = true;
-          window.scrollBy({ top: window.innerHeight * 0.5, behavior: 'smooth' });
+          window.scrollBy({
+            top: window.innerHeight * 0.5,
+            behavior: "smooth",
+          });
         }
       } else if (scrollAccumulator < -scrollThreshold) {
         if (currentPage > 0) {
@@ -265,16 +288,16 @@ export default function StackingCards() {
     if (isMobile()) return; // Skip initial positioning on mobile
 
     // Hide footer initially on desktop
-    const footer = document.querySelector('footer');
+    const footer = document.querySelector("footer");
     if (footer) {
-      (footer as HTMLElement).style.display = 'none';
+      (footer as HTMLElement).style.display = "none";
     }
 
     // Use setTimeout to ensure refs are ready
     const timer = setTimeout(() => {
       const cardElements = cardsRef.current.filter(Boolean) as HTMLDivElement[];
       if (cardElements.length === 0) return; // Not ready yet
-      
+
       cardElements.forEach((card, index) => {
         gsap.set(card, {
           left: index * LEFT_OFFSET,
@@ -289,19 +312,19 @@ export default function StackingCards() {
 
   const handleCardClick = (index: number) => {
     if (isAnimating.current || index === currentPage) return;
-    
+
     // If clicking on first card, reset everything
     if (index === 0) {
       hasReachedLastCard.current = false;
       hasScrolledToFooter.current = false;
-      
+
       // Hide footer
-      const footer = document.querySelector('footer');
+      const footer = document.querySelector("footer");
       if (footer) {
-        (footer as HTMLElement).style.display = 'none';
+        (footer as HTMLElement).style.display = "none";
       }
     }
-    
+
     isAnimating.current = true;
     setCurrentPage(index);
   };
