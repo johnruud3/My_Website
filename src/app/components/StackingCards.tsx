@@ -113,12 +113,6 @@ const cards: CardItem[] = [
     ],
     mediaGridModifier: "treoppdrag",
   },
-  {
-    id: 6,
-    title: "Contact me",
-    description: "Email: johnruud@hotmail.no",
-    color: "linear-gradient(135deg, #050b16, #146C82, #050b16)",
-  },
 ];
 
 const LEFT_OFFSET = 30;
@@ -130,8 +124,14 @@ export default function StackingCards() {
   const isAnimating = useRef(false);
   const totalCards = cards.length;
 
-  // Animate cards when currentPage changes
+  // Detect if mobile
+  const isMobile = () =>
+    typeof window !== "undefined" && window.innerWidth <= 768;
+
+  // Animate cards when currentPage changes (desktop only)
   useEffect(() => {
+    if (isMobile()) return; // Skip animations on mobile
+
     const cardElements = cardsRef.current.filter(Boolean) as HTMLDivElement[];
 
     cardElements.forEach((card, index) => {
@@ -160,8 +160,10 @@ export default function StackingCards() {
     });
   }, [currentPage]);
 
-  // Handle wheel scroll
+  // Handle wheel scroll (desktop only)
   useEffect(() => {
+    if (isMobile()) return; // Skip wheel handler on mobile
+
     const container = containerRef.current;
     if (!container) return;
 
@@ -221,7 +223,10 @@ export default function StackingCards() {
     };
   }, [currentPage, totalCards]);
 
+  // Set initial positions (desktop only)
   useEffect(() => {
+    if (isMobile()) return; // Skip initial positioning on mobile
+
     const cardElements = cardsRef.current.filter(Boolean) as HTMLDivElement[];
     cardElements.forEach((card, index) => {
       gsap.set(card, {
