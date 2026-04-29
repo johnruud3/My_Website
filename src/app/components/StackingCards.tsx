@@ -122,6 +122,8 @@ export default function StackingCards() {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const isAnimating = useRef(false);
+  const hasScrolledToFooter = useRef(false);
+  const hasReachedLastCard = useRef(false);
   const totalCards = cards.length;
 
   // Detect if mobile
@@ -145,6 +147,15 @@ export default function StackingCards() {
           onComplete: () => {
             if (index === currentPage) {
               isAnimating.current = false;
+              
+              // Show footer when card 5 is reached
+              if (currentPage === totalCards - 1 && !hasReachedLastCard.current) {
+                hasReachedLastCard.current = true;
+                const footer = document.querySelector('footer');
+                if (footer) {
+                  (footer as HTMLElement).style.display = 'block';
+                }
+              }
             }
           },
         });
@@ -158,7 +169,7 @@ export default function StackingCards() {
         });
       }
     });
-  }, [currentPage]);
+  }, [currentPage, totalCards]);
 
   // Handle wheel scroll (desktop only)
   useEffect(() => {
@@ -173,13 +184,22 @@ export default function StackingCards() {
     let animationLockUntil = 0;
 
     const handleWheel = (e: WheelEvent) => {
-      // Check if we're in the stacking section
       const rect = container.getBoundingClientRect();
-      if (rect.top > 0 || rect.bottom < window.innerHeight) {
+      
+      // Section hasn't been reached yet (still above)
+      if (rect.top > 0) {
         scrollAccumulator = 0;
-        return; // Not in view, let normal scroll happen
+        hasScrolledToFooter.current = false; // Reset flag when returning to section
+        return; // Allow normal scroll to reach it
       }
-
+      
+      // If we've already scrolled to footer, release control entirely
+      if (hasScrolledToFooter.current) {
+        scrollAccumulator = 0;
+        return;
+      }
+      
+      // Section is in view - LOCK SCROLL (prevent default)
       e.preventDefault();
 
       // Prevent scroll while animating or during lock period
@@ -199,20 +219,31 @@ export default function StackingCards() {
       scrollAccumulator += e.deltaY * 0.8;
 
       // Check if threshold reached
-      if (scrollAccumulator > scrollThreshold && currentPage < totalCards - 1) {
-        scrollAccumulator = 0;
-        isAnimating.current = true;
-        animationLockUntil = Date.now() + 1000; // Lock for 1 second
-        setCurrentPage((prev) => prev + 1);
-      } else if (scrollAccumulator < -scrollThreshold && currentPage > 0) {
-        scrollAccumulator = 0;
-        isAnimating.current = true;
-        animationLockUntil = Date.now() + 1000; // Lock for 1 second
-        setCurrentPage((prev) => prev - 1);
-      } else if (scrollAccumulator < -scrollThreshold && currentPage === 0) {
-        // Allow scrolling up past the section when on first page
-        scrollAccumulator = 0;
-        window.scrollBy(0, -100);
+      if (scrollAccumulator > scrollThreshold) {
+        if (currentPage < totalCards - 1) {
+          // NOT on last card - go to next card (NO page scroll)
+          scrollAccumulator = 0;
+          isAnimating.current = true;
+          animationLockUntil = Date.now() + 1000;
+          setCurrentPage((prev) => prev + 1);
+        } else if (currentPage === totalCards - 1) {
+          // ONLY on last card - allow scroll to footer
+          scrollAccumulator = 0;
+          hasScrolledToFooter.current = true;
+          window.scrollBy({ top: window.innerHeight * 0.5, behavior: 'smooth' });
+        }
+      } else if (scrollAccumulator < -scrollThreshold) {
+        if (currentPage > 0) {
+          // Go to previous card (NO page scroll)
+          scrollAccumulator = 0;
+          isAnimating.current = true;
+          animationLockUntil = Date.now() + 1000;
+          setCurrentPage((prev) => prev - 1);
+        } else if (currentPage === 0) {
+          // On FIRST card scrolling UP - allow scroll up to previous sections
+          scrollAccumulator = 0;
+          window.scrollBy(0, -100);
+        }
       }
     };
 
@@ -227,14 +258,27 @@ export default function StackingCards() {
   useEffect(() => {
     if (isMobile()) return; // Skip initial positioning on mobile
 
-    const cardElements = cardsRef.current.filter(Boolean) as HTMLDivElement[];
-    cardElements.forEach((card, index) => {
-      gsap.set(card, {
-        left: index * LEFT_OFFSET,
-        yPercent: index === 0 ? 0 : 100,
-        opacity: 1,
+    // Hide footer initially on desktop
+    const footer = document.querySelector('footer');
+    if (footer) {
+      (footer as HTMLElement).style.display = 'none';
+    }
+
+    // Use setTimeout to ensure refs are ready
+    const timer = setTimeout(() => {
+      const cardElements = cardsRef.current.filter(Boolean) as HTMLDivElement[];
+      if (cardElements.length === 0) return; // Not ready yet
+      
+      cardElements.forEach((card, index) => {
+        gsap.set(card, {
+          left: index * LEFT_OFFSET,
+          yPercent: index === 0 ? 0 : 100,
+          opacity: 1,
+        });
       });
-    });
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleCardClick = (index: number) => {

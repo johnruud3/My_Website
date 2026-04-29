@@ -1,5 +1,6 @@
 import ImageSlider from "./components/ImageSlider";
 import StackingCards from "./components/StackingCards";
+import Footer from "./components/Footer";
 import styles from "./components/StackingCards.module.css";
 
 export default function Home() {
@@ -132,6 +133,7 @@ export default function Home() {
           <div className="mb-32"></div>
           <StackingCards />
         </main>
+        <Footer />
       </div>
     </>
   );
