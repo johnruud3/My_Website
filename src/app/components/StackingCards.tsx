@@ -88,7 +88,7 @@ const cards: CardItem[] = [
     id: 4,
     title: "Treoppdrag",
     description:
-      "Treoppdrag.no is a platform built to connect customers across Norway with professional, insured tree cutters in a fast, reliable, and secure way.\n\n Customers can create an account and submit a job request in just a few steps. Behind the scenes, the system handles everything automatically. We’ve built a custom round-robin distribution system from the ground up that intelligently assigns each job to the most suitable tree cutter based on location and availability.\n\n For professionals, Treoppdrag.no includes a powerful admin and user dashboard where they can manage jobs, track assignments, and handle their workflow efficiently. To maintain a high standard of safety and trust, we only accept contractors who have valid insurance giving customers peace of mind when booking services. \n\n Treoppdrag. no is created with next.js",
+      "Treoppdrag.no is a platform built to connect customers across Norway with professional, insured tree cutters in a fast, reliable, and secure way.\n\n Customers can create an account and submit a job request in just a few steps. Behind the scenes, the system handles everything automatically. We’ve built a custom round-robin distribution system from the ground up that intelligently assigns each job to the most suitable tree cutter based on location and availability.\n\n For professionals, Treoppdrag.no includes a powerful admin and user dashboard where they can manage jobs, track assignments, and handle their workflow efficiently. To maintain a high standard of safety and trust, we only accept contractors who have valid insurance giving customers peace of mind when booking services. \n\n Treoppdrag.no is created with next.js",
     color: "linear-gradient(135deg, #050b16, #146C82, #050b16)",
     link: "https://treoppdrag.no",
     images: [
@@ -101,8 +101,22 @@ const cards: CardItem[] = [
   },
   {
     id: 5,
+    title: "NordMind",
+    description:
+      "NordMind is a web application designed to simplify how users manage emails, schedules, and team communication. By integrating with tools like Google Mail and Google Calendar, it brings messages, planning, and tasks into one structured system. A built-in AI assistant can help write emails, create calendar plans, and automate routine actions. NordMind can also forward important updates from emails to team platforms through an approval-based system, keeping communication clear and relevant. The platform is flexible and customizable to fit different workflows. The platform will also include AI-driven insights that analyze similar platforms and online content to suggest improvements, helping users keep their websites relevant and optimized for search visibility. It will be able to generate blog posts and content ideas automatically, with user approval before publishing. NordMind is currently in development, with ongoing work focused on smarter automation, content optimization, and AI-assisted workflows. \n\n Nordmind.no is created with next.js",
+    color: "linear-gradient(135deg, #050b16, #146C82, #050b16)",
+    images: [
+      { src: "/img/dashboard_nordmind.png", objectFit: "cover" },
+      { src: "/img/calendar_nordmind.png", objectFit: "cover" },
+      { src: "/img/landing_nordmind.png", objectFit: "cover" },
+      { src: "/img/dashboard2_nordmind.png", objectFit: "contain" },
+    ],
+    mediaGridModifier: "treoppdrag",
+  },
+  {
+    id: 6,
     title: "Contact me",
-    description: "",
+    description: "Email: johnruud@hotmail.no",
     color: "linear-gradient(135deg, #050b16, #146C82, #050b16)",
   },
 ];
