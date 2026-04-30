@@ -132,7 +132,7 @@ const translations: Record<Locale, Record<TranslationKey, string>> = {
     "stacking.readMore": "Les mer",
     "stacking.readLess": "Les mindre",
     "stacking.scrollForMore": "Bla for mer",
-    "stacking.visitSite": "Besok side",
+    "stacking.visitSite": "Besøk side",
   },
 };
 

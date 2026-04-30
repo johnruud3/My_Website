@@ -188,7 +188,7 @@ export default function StackingCards() {
     4: {
       title: "Treoppdrag",
       description:
-        "Treoppdrag.no er en plattform som kobler kunder i hele Norge med profesjonelle og forsikrede trefellere på en rask og trygg mate.\n\nKunder kan opprette konto og sende inn oppdrag på få steg. I bakgrunnen fordeler et egenutviklet round-robin-system oppdrag basert på lokasjon og tilgjengelighet.\n\nFor fagfolk tilbyr plattformen et kraftig dashboard for handtering av oppdrag og arbeidsflyt. For å sikre kvalitet og trygghet godkjennes kun aktorer med gyldig forsikring.\n\nTreoppdrag.no er bygget med Next.js og Tailwind.",
+        "Treoppdrag.no er en plattform som kobler kunder i hele Norge med profesjonelle og forsikrede trefellere på en rask og trygg måte.\n\nKunder kan opprette konto og sende inn oppdrag på få steg. I bakgrunnen fordeler et egenutviklet round-robin-system oppdrag basert på trefellernes lokasjon og tilgjengelighet.\n\nFor fagfolk tilbyr plattformen et kraftig dashboard for håndtering av oppdrag og arbeidsflyt. For å sikre kvalitet og trygghet godkjennes kun aktører med gyldig forsikring. Her har jeg utviklet logoen, og nettsiden har jeg laget i samarbeid med det fantastiske teamet vårt!\n\nTreoppdrag.no er bygget med Next.js og Tailwind.",
     },
     5: {
       title: "NordMind",
@@ -198,7 +198,7 @@ export default function StackingCards() {
     6: {
       title: "Elite Rollespill",
       description:
-        "Elite Rollespill er en Norsk rollespill-server for Grand Theft Auto 5, der spillere kan spille ut realistiske scenarioer i et norsk miljø. Hele spillverdenen er bygget opp som Oslo, med norske gateskilt, navn og detaljer for høy innlevelse.\n\nDette er et ambisiøst prosjekt med et sterkt team av utviklere og designere.\n\nElite Rollespill er bygget med Lua-skript og MySQL-database.",
+        "Elite Rollespill er en Norsk rollespill-server for Grand Theft Auto 5 hvor jeg er utvikler, designer og deleier for tiden. Spillere kan spille ut realistiske scenarioer i et norskt miljø. Hele spillverdenen er bygget opp i Oslo, med norske gateskilt, navn og detaljer for høy innlevelse.\n\nDette er et ambisiøst prosjekt med et sterkt team på tre personer som består av to utviklere og en designer.\n\nElite Rollespill er bygget med Lua-skript og MySQL-database.",
     },
   };
 
