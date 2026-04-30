@@ -129,3 +129,14 @@
 .dotActive {
   background: #34c1e3;
 }
+
+@media (max-width: 768px) {
+  .main {
+    overflow-x: hidden;
+  }
+
+  .carouselContainer {
+    overflow: hidden;
+    touch-action: pan-y;
+  }
+}
