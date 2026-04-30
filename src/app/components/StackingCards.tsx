@@ -62,7 +62,7 @@ const cards: CardItem[] = [
     description:
       "I’m John, a developer and creator focused on building modern, practical solutions that people actually use. I enjoy taking ideas from concept to reality whether it’s designing clean user interfaces, developing full platforms, or experimenting with new technology.\n\n My work is driven by a mix of creativity and problem-solving. I like building systems that are not only functional, but also efficient and scalable, such as automated platforms, user dashboards, and AI-powered tools. I’m especially interested in projects where I can simplify complex processes and turn them into something intuitive and easy to use.\n\n Over time, I’ve worked on everything from branding and logo design to full web applications and service platforms. I enjoy having control over the entire process, from idea and design to development and deployment.\n\n Right now, I’m focused on growing my own projects and building solutions that can scale both technically and as businesses. I’m always looking for new challenges and opportunities to create something meaningful, whether working in a team or independently.",
     color: "linear-gradient(135deg, #050b16, #146C82, #050b16)",
-    image: "/img/portrett1.jpg",
+    image: "/img/Portrett1.jpg",
   },
   {
     id: 2,

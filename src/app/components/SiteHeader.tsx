@@ -18,7 +18,7 @@ export default function SiteHeader() {
         <div className="flex md:relative flex-col md:flex-row items-center justify-center gap-3 md:gap-0">
           <div className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 items-center gap-3">
             <img
-              src="/img/portrett1.jpg"
+              src="/img/Portrett1.jpg"
               alt="John"
               className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-[#34C1E3] shadow-lg"
             />
