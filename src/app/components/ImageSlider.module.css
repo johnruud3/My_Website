@@ -15,7 +15,7 @@
 .carouselContainer {
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  height: 450px;
+  height: 600px;
   overflow: hidden;
   perspective: 1500px;
   perspective-origin: center 40%;
