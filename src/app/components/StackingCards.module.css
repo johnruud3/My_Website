@@ -105,9 +105,11 @@
   object-fit: cover;
 }
 
-/* NordMind — nudge whole 2x2 media grid left */
-.cardMediaGrid_nordmind {
-  transform: translateX(-24px);
+/* NordMind — desktop only nudge for whole 2x2 media grid */
+@media (min-width: 769px) {
+  .cardMediaGrid_nordmind {
+    transform: translateX(-24px);
+  }
 }
 
 .cardMediaItem {
