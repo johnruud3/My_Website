@@ -158,6 +158,10 @@
   color: #5fd4f0;
 }
 
+.readMoreButton {
+  display: none;
+}
+
 .scrollIndicator {
   position: absolute;
   bottom: 3rem;
@@ -199,7 +203,7 @@
 /* Mobile Responsive - Only applies on screens ≤768px */
 @media (max-width: 768px) {
   .stackingSection {
-    --card-description-font-size: 13px;
+    --card-description-font-size: 14px;
     height: auto !important;
     overflow: visible !important;
   }
@@ -216,14 +220,17 @@
   }
 
   .cardTitle {
-    font-size: 2rem;
-    margin-bottom: 0.75rem;
+    font-size: 1.9rem;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.9rem;
   }
 
   .cardDescription {
-    max-width: 100%;
-    font-size: 13px;
-    line-height: 1.5;
+    max-width: 62ch;
+    font-size: 14px;
+    line-height: 1.72;
+    color: rgba(255, 255, 255, 0.92);
   }
 
   .cardContent {
@@ -233,19 +240,30 @@
   }
 
   .cardTextWrapper {
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
     order: 1;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
   }
 
   .cardTextWrapper .cardTitle {
-    text-align: center;
+    text-align: left;
     margin-bottom: 1rem;
   }
 
   .cardTextWrapper .cardDescription {
-    text-align: center;
-    max-width: 100%;
+    text-align: left;
+    max-width: 62ch;
+  }
+
+  .cardDescriptionCollapsed {
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .cardMediaGrid {
@@ -264,7 +282,27 @@
   }
 
   .cardLink {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+  }
+
+  .readMoreButton {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 0.25rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: rgba(175, 175, 175, 0.441);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .readMoreButton:hover {
+    color: rgba(202, 202, 202, 0.441);
   }
 
   .scrollIndicator {
@@ -279,11 +317,13 @@
   }
 
   .cardTitle {
-    font-size: 1.5rem;
+    font-size: 1.65rem;
+    line-height: 1.2;
   }
 
   .cardDescription {
-    font-size: 12px;
+    font-size: 13.5px;
+    line-height: 1.68;
   }
 
   .cardContent {

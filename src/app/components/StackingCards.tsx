@@ -148,6 +148,9 @@ export default function StackingCards() {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [expandedCards, setExpandedCards] = useState<Record<number, boolean>>(
+    {},
+  );
   const isAnimating = useRef(false);
   const hasScrolledToFooter = useRef(false);
   const hasReachedLastCard = useRef(false);
@@ -339,28 +342,155 @@ export default function StackingCards() {
     setCurrentPage(index);
   };
 
+  const toggleCardExpansion = (cardId: number) => {
+    setExpandedCards((prev) => ({
+      ...prev,
+      [cardId]: !prev[cardId],
+    }));
+  };
+
   return (
     <section className={styles.stackingSection} ref={containerRef}>
       <div className={styles.cardsWrapper}>
-        {cards.map((card, index) => (
-          <div
-            key={card.id}
-            ref={(el) => {
-              cardsRef.current[index] = el;
-            }}
-            className={`${styles.card} ${index < currentPage ? styles.cardStacked : ""}`}
-            style={{
-              background: card.color,
-              zIndex: index + 1,
-              cursor: index < currentPage ? "pointer" : "default",
-            }}
-            onClick={() => index < currentPage && handleCardClick(index)}
-          >
-            {card.image || card.images?.length ? (
-              <div className={styles.cardContent}>
-                <div className={styles.cardTextWrapper}>
+        {cards.map((card, index) => {
+          const isExpanded = !!expandedCards[card.id];
+          const canCollapseDescription = typeof card.description === "string";
+
+          return (
+            <div
+              key={card.id}
+              ref={(el) => {
+                cardsRef.current[index] = el;
+              }}
+              className={`${styles.card} ${index < currentPage ? styles.cardStacked : ""}`}
+              style={{
+                background: card.color,
+                zIndex: index + 1,
+                cursor: index < currentPage ? "pointer" : "default",
+              }}
+              onClick={() => index < currentPage && handleCardClick(index)}
+            >
+              {card.image || card.images?.length ? (
+                <div className={styles.cardContent}>
+                  <div className={styles.cardTextWrapper}>
+                    <h2 className={styles.cardTitle}>{card.title}</h2>
+                    <p
+                      className={`${styles.cardDescription} ${
+                        canCollapseDescription && !isExpanded
+                          ? styles.cardDescriptionCollapsed
+                          : ""
+                      }`}
+                    >
+                      {card.description}
+                    </p>
+                    {canCollapseDescription && (
+                      <button
+                        type="button"
+                        className={styles.readMoreButton}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleCardExpansion(card.id);
+                        }}
+                      >
+                        {isExpanded ? "Read less" : "Read more..."}
+                      </button>
+                    )}
+                    {card.link && (
+                      <a
+                        href={card.link}
+                        className={styles.cardLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Visit site
+                      </a>
+                    )}
+                  </div>
+                  {(() => {
+                    const mediaSources = normalizeMediaItems(
+                      card.images,
+                      card.image,
+                    );
+
+                    return (
+                      <div
+                        className={`${styles.cardMediaGrid} ${mediaGridClassName(card.mediaGridModifier)}`}
+                        data-count={mediaSources.length}
+                      >
+                        {mediaSources.map((item, mediaIndex) => (
+                          <div
+                            key={`${card.id}-${mediaIndex}`}
+                            className={styles.cardMediaItem}
+                          >
+                            <img
+                              src={item.src}
+                              alt={`${typeof card.title === "string" ? card.title : "Project"} image ${mediaIndex + 1}`}
+                              className={styles.cardMediaImage}
+                              style={
+                                item.objectFit || item.objectPosition
+                                  ? {
+                                      ...(item.objectFit
+                                        ? { objectFit: item.objectFit }
+                                        : {}),
+                                      ...(item.objectPosition
+                                        ? {
+                                            objectPosition: item.objectPosition,
+                                          }
+                                        : {}),
+                                    }
+                                  : undefined
+                              }
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })()}
+                  {/* Scroll indicator for first card */}
+                  {index === 0 && currentPage === 0 && (
+                    <div className={styles.scrollIndicator}>
+                      <p className={styles.scrollText}>Scroll for more</p>
+                      <svg
+                        className={styles.scrollArrow}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <>
                   <h2 className={styles.cardTitle}>{card.title}</h2>
-                  <p className={styles.cardDescription}>{card.description}</p>
+                  <p
+                    className={`${styles.cardDescription} ${
+                      canCollapseDescription && !isExpanded
+                        ? styles.cardDescriptionCollapsed
+                        : ""
+                    }`}
+                  >
+                    {card.description}
+                  </p>
+                  {canCollapseDescription && (
+                    <button
+                      type="button"
+                      className={styles.readMoreButton}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleCardExpansion(card.id);
+                      }}
+                    >
+                      {isExpanded ? "Read less" : "Read more"}
+                    </button>
+                  )}
                   {card.link && (
                     <a
                       href={card.link}
@@ -372,103 +502,30 @@ export default function StackingCards() {
                       Visit site
                     </a>
                   )}
-                </div>
-                {(() => {
-                  const mediaSources = normalizeMediaItems(
-                    card.images,
-                    card.image,
-                  );
-
-                  return (
-                    <div
-                      className={`${styles.cardMediaGrid} ${mediaGridClassName(card.mediaGridModifier)}`}
-                      data-count={mediaSources.length}
-                    >
-                      {mediaSources.map((item, mediaIndex) => (
-                        <div
-                          key={`${card.id}-${mediaIndex}`}
-                          className={styles.cardMediaItem}
-                        >
-                          <img
-                            src={item.src}
-                            alt={`${typeof card.title === "string" ? card.title : "Project"} image ${mediaIndex + 1}`}
-                            className={styles.cardMediaImage}
-                            style={
-                              item.objectFit || item.objectPosition
-                                ? {
-                                    ...(item.objectFit
-                                      ? { objectFit: item.objectFit }
-                                      : {}),
-                                    ...(item.objectPosition
-                                      ? { objectPosition: item.objectPosition }
-                                      : {}),
-                                  }
-                                : undefined
-                            }
-                          />
-                        </div>
-                      ))}
+                  {/* Scroll indicator for first card */}
+                  {index === 0 && currentPage === 0 && (
+                    <div className={styles.scrollIndicator}>
+                      <p className={styles.scrollText}>Scroll for more</p>
+                      <svg
+                        className={styles.scrollArrow}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
                     </div>
-                  );
-                })()}
-                {/* Scroll indicator for first card */}
-                {index === 0 && currentPage === 0 && (
-                  <div className={styles.scrollIndicator}>
-                    <p className={styles.scrollText}>Scroll for more</p>
-                    <svg
-                      className={styles.scrollArrow}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <>
-                <h2 className={styles.cardTitle}>{card.title}</h2>
-                <p className={styles.cardDescription}>{card.description}</p>
-                {card.link && (
-                  <a
-                    href={card.link}
-                    className={styles.cardLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    Visit site
-                  </a>
-                )}
-                {/* Scroll indicator for first card */}
-                {index === 0 && currentPage === 0 && (
-                  <div className={styles.scrollIndicator}>
-                    <p className={styles.scrollText}>Scroll for more</p>
-                    <svg
-                      className={styles.scrollArrow}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-        ))}
+                  )}
+                </>
+              )}
+            </div>
+          );
+        })}
       </div>
     </section>
   );
