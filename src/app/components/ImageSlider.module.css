@@ -1,6 +1,6 @@
 .main {
   max-width: 100%;
-  padding: 2em 1.5em;
+  padding: 2em 0;
   margin: 0 auto;
 }
 
@@ -13,8 +13,10 @@
 }
 
 .carouselContainer {
-  width: 100%;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
   height: 450px;
+  overflow: hidden;
   perspective: 1500px;
   perspective-origin: center 40%;
   display: flex;
@@ -136,7 +138,6 @@
   }
 
   .carouselContainer {
-    overflow: hidden;
     touch-action: pan-y;
   }
 }
