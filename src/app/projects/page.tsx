@@ -1,11 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale } from "../components/LocaleProvider";
 
 interface Project {
   id: number;
   title: string;
+  titleNo: string;
   description: string;
+  descriptionNo: string;
   status: ("Planning" | "In Development" | "Beta" | "Coming Soon")[]; // Array of statuses
   technologies: string[];
   image?: string;
@@ -14,13 +17,17 @@ interface Project {
 }
 
 export default function ProjectsPage() {
+  const { t, locale } = useLocale();
   const projects: Project[] = [
     {
       id: 1,
       title: "Elite Roleplay",
+      titleNo: "Elite Rollespill",
       description:
         "Elite Roleplay is a roleplay server for the game Grand Theft Auto 5. It is a server that allows players to roleplay in the game. It is a server where the ingame world is made out to be Oslo in Norway. Hardcore roleplay in norwegian and everything is immersed down to the street signs and names on the street signs. Even the buildings have the real original names on them. This is an ambitious project. And we have a strong team of developers and designers working on it.",
-      status: ["Coming Soon", "In Development"],
+      descriptionNo:
+        "Elite Rollespill er en rolleplay-server for Grand Theft Auto 5. Serveren lar spillere rollespille i en verden bygget opp som Oslo. Hardcore norsk rolleplay med hoy innlevelse, fra gateskilt til bydetaljer. Dette er et ambisiost prosjekt med et sterkt team av utviklere og designere.",
+      status: ["Beta", "In Development"],
       technologies: ["Lua", "MySQL", "FiveM"],
       image: "/img/eliterollespill.png",
       imageObjectFit: "cover",
@@ -29,8 +36,11 @@ export default function ProjectsPage() {
     {
       id: 2,
       title: "MatBoksen App",
+      titleNo: "MatBoksen App",
       description:
         "Matboksen is a app used for tracking food and having a healthier/easier life with the help of an AI assistant.",
+      descriptionNo:
+        "Matboksen er en app for matlogging og en enklere, sunnere hverdag med hjelp av en KI-assistent.",
       status: ["In Development"],
       technologies: ["Next.js", "TailwindCSS", "Supabase"],
       image: "/img/matboksen2.png",
@@ -40,8 +50,11 @@ export default function ProjectsPage() {
     {
       id: 3,
       title: "NordMind",
+      titleNo: "NordMind",
       description:
         "NordMind is a web application designed to simplify how users manage emails, schedules, and team communication.",
+      descriptionNo:
+        "NordMind er en webapplikasjon laget for å forenkle håndtering av e-post, planlegging og teamkommunikasjon.",
       status: ["In Development"],
       technologies: ["Next.js", "TailwindCSS", "Supabase"],
       image: "/img/nordmind2.png",
@@ -52,6 +65,13 @@ export default function ProjectsPage() {
 
   const [selectedStatus, setSelectedStatus] = useState<string>("All");
   const statuses = ["All", "Planning", "In Development", "Beta", "Coming Soon"];
+  const statusLabel = (status: string) => {
+    if (status === "All") return t("status.all");
+    if (status === "Planning") return t("status.planning");
+    if (status === "In Development") return t("status.inDevelopment");
+    if (status === "Beta") return t("status.beta");
+    return t("status.comingSoon");
+  };
 
   const filteredProjects =
     selectedStatus === "All"
@@ -76,151 +96,149 @@ export default function ProjectsPage() {
   return (
     <div className="min-h-screen bg-main font-sans pt-24 md:pt-32 pb-16">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-          {/* Page Header */}
-          <div className="text-center mb-12 md:mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Projects <span className="text-[#34C1E3]">Overview</span>
-            </h1>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Exciting projects currently in development. Stay tuned for
-              updates!
-            </p>
-          </div>
+        {/* Page Header */}
+        <div className="text-center mb-12 md:mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            {t("projects.title")}
+          </h1>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            {t("projects.subtitle")}
+          </p>
+        </div>
 
-          {/* Filter Tabs */}
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {statuses.map((status) => (
-              <button
-                key={status}
-                onClick={() => setSelectedStatus(status)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
-                  selectedStatus === status
-                    ? "bg-[#34C1E3] text-[#050b16]"
-                    : "bg-[#146C82]/20 text-gray-300 hover:bg-[#146C82]/40"
-                }`}
-              >
-                {status}
-              </button>
-            ))}
-          </div>
+        {/* Filter Tabs */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {statuses.map((status) => (
+            <button
+              key={status}
+              onClick={() => setSelectedStatus(status)}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
+                selectedStatus === status
+                  ? "bg-[#34C1E3] text-[#050b16]"
+                  : "bg-[#146C82]/20 text-gray-300 hover:bg-[#146C82]/40"
+              }`}
+            >
+              {statusLabel(status)}
+            </button>
+          ))}
+        </div>
 
-          {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {filteredProjects.map((project) => (
-              <div
-                key={project.id}
-                className="bg-gradient-to-br from-[#146C82]/10 to-[#050b16]/50 backdrop-blur-sm border border-[#34C1E3]/20 rounded-xl p-6 hover:border-[#34C1E3]/50 transition-all hover:transform hover:scale-105 duration-300"
-              >
-                {/* Project Image */}
-                <div className="w-full h-48 bg-[#146C82]/20 rounded-lg mb-4 flex items-center justify-center border border-[#34C1E3]/10 overflow-hidden">
-                  {project.image ? (
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full"
-                      style={{ objectFit: project.imageObjectFit || "contain" }}
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {filteredProjects.map((project) => (
+            <div
+              key={project.id}
+              className="bg-gradient-to-br from-[#146C82]/10 to-[#050b16]/50 backdrop-blur-sm border border-[#34C1E3]/20 rounded-xl p-6 hover:border-[#34C1E3]/50 transition-all hover:transform hover:scale-105 duration-300"
+            >
+              {/* Project Image */}
+              <div className="w-full h-48 bg-[#146C82]/20 rounded-lg mb-4 flex items-center justify-center border border-[#34C1E3]/10 overflow-hidden">
+                {project.image ? (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full"
+                    style={{ objectFit: project.imageObjectFit || "contain" }}
+                  />
+                ) : (
+                  <svg
+                    className="w-16 h-16 text-[#34C1E3]/30"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                     />
-                  ) : (
-                    <svg
-                      className="w-16 h-16 text-[#34C1E3]/30"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
-                  )}
-                </div>
-
-                {/* Status Badges - Multiple */}
-                <div className="mb-3 flex flex-wrap gap-2">
-                  {project.status.map((stat, idx) => (
-                    <span
-                      key={idx}
-                      className={`inline-block px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(stat)}`}
-                    >
-                      {stat}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Project Title */}
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  {project.title}
-                </h3>
-
-                {/* Project Description */}
-                <p className="text-gray-400 text-sm mb-4 line-clamp-3">
-                  {project.description}
-                </p>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech, index) => (
-                    <span
-                      key={index}
-                      className="px-2 py-1 bg-[#34C1E3]/10 text-[#34C1E3] text-xs rounded border border-[#34C1E3]/20"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Expected Launch */}
-                {project.expectedLaunch && (
-                  <div className="text-xs text-gray-500 flex items-center gap-1">
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
-                    Expected: {project.expectedLaunch}
-                  </div>
+                  </svg>
                 )}
               </div>
-            ))}
-          </div>
 
-          {/* Empty State */}
-          {filteredProjects.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-gray-400 text-lg">
-                No projects found with status "{selectedStatus}"
-              </p>
-            </div>
-          )}
+              {/* Status Badges - Multiple */}
+              <div className="mb-3 flex flex-wrap gap-2">
+                {project.status.map((stat, idx) => (
+                  <span
+                    key={idx}
+                    className={`inline-block px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(stat)}`}
+                  >
+                    {statusLabel(stat)}
+                  </span>
+                ))}
+              </div>
 
-          {/* Call to Action */}
-          <div className="mt-16 text-center">
-            <div className="inline-block bg-gradient-to-r from-[#146C82]/20 to-[#050b16]/50 backdrop-blur-sm border border-[#34C1E3]/20 rounded-xl p-8">
-              <h2 className="text-2xl font-bold text-white mb-3">
-                Have an idea?
-              </h2>
-              <p className="text-gray-400 mb-6 max-w-md">
-                I'm always open to collaborating on exciting projects. Let's
-                build something amazing together!
+              {/* Project Title */}
+              <h3 className="text-xl font-semibold text-white mb-2">
+                {locale === "no" ? project.titleNo : project.title}
+              </h3>
+
+              {/* Project Description */}
+              <p className="text-gray-400 text-sm mb-4 line-clamp-3">
+                {locale === "no" ? project.descriptionNo : project.description}
               </p>
-              <a
-                href="/contact"
-                className="inline-block px-6 py-3 bg-[#34C1E3] text-[#050b16] font-medium rounded-lg hover:bg-[#146C82] hover:text-white transition-colors"
-              >
-                Get in Touch
-              </a>
+
+              {/* Technologies */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.technologies.map((tech, index) => (
+                  <span
+                    key={index}
+                    className="px-2 py-1 bg-[#34C1E3]/10 text-[#34C1E3] text-xs rounded border border-[#34C1E3]/20"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              {/* Expected Launch */}
+              {project.expectedLaunch && (
+                <div className="text-xs text-gray-500 flex items-center gap-1">
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
+                  </svg>
+                  {t("projects.expected")}: {project.expectedLaunch}
+                </div>
+              )}
             </div>
+          ))}
+        </div>
+
+        {/* Empty State */}
+        {filteredProjects.length === 0 && (
+          <div className="text-center py-16">
+            <p className="text-gray-400 text-lg">
+              {t("projects.emptyPrefix")} "{statusLabel(selectedStatus)}"
+            </p>
           </div>
+        )}
+
+        {/* Call to Action */}
+        <div className="mt-16 text-center">
+          <div className="inline-block bg-gradient-to-r from-[#146C82]/20 to-[#050b16]/50 backdrop-blur-sm border border-[#34C1E3]/20 rounded-xl p-8">
+            <h2 className="text-2xl font-bold text-white mb-3">
+              {t("projects.ideaTitle")}
+            </h2>
+            <p className="text-gray-400 mb-6 max-w-md">
+              {t("projects.ideaText")}
+            </p>
+            <a
+              href="/contact"
+              className="inline-block px-6 py-3 bg-[#34C1E3] text-[#050b16] font-medium rounded-lg hover:bg-[#146C82] hover:text-white transition-colors"
+            >
+              {t("projects.getInTouch")}
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );

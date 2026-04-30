@@ -1,9 +1,11 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useLocale } from "./LocaleProvider";
 
 export default function SiteHeader() {
   const pathname = usePathname();
+  const { locale, setLocale, t } = useLocale();
 
   const linkClass = (href: string) =>
     `${
@@ -29,15 +31,24 @@ export default function SiteHeader() {
 
           <nav className="flex justify-center gap-6 md:gap-12">
             <a href="/" className={linkClass("/")}>
-              Home
+              {t("nav.home")}
             </a>
             <a href="/projects" className={linkClass("/projects")}>
-              Projects Overview
+              {t("nav.projects")}
             </a>
             <a href="/contact" className={linkClass("/contact")}>
-              Contact
+              {t("nav.contact")}
             </a>
           </nav>
+
+          <button
+            type="button"
+            onClick={() => setLocale(locale === "en" ? "no" : "en")}
+            className="absolute right-3 md:right-0 top-1/2 -translate-y-1/2 text-white/55 hover:text-white/80 text-xs md:text-sm font-medium transition-colors cursor-pointer"
+            aria-label={t("nav.lang")}
+          >
+            {locale === "en" ? "NO" : "EN"}
+          </button>
         </div>
       </div>
     </header>

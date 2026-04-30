@@ -3,10 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import styles from "./ImageSlider.module.css";
+import { useLocale } from "./LocaleProvider";
 
 interface SlideItem {
   id: number;
   title: string;
+  titleNo: string;
   image: string;
   backgroundSize?: string;
   backgroundPosition?: string;
@@ -17,6 +19,7 @@ const slides: SlideItem[] = [
   {
     id: 1,
     title: "Matboksen my food tracking app",
+    titleNo: "Matboksen matsporingsapp",
     image: "/img/matboksen.png",
     backgroundSize: "80% auto",
     backgroundColor: "#6130C0",
@@ -24,18 +27,21 @@ const slides: SlideItem[] = [
   {
     id: 2,
     title: "My first big logo design",
+    titleNo: "Første store logodesign",
     image: "/img/joblaunchLogo.jpg",
     backgroundSize: "70% auto",
   },
   {
     id: 3,
     title: "Treoppdrag my first big website",
+    titleNo: "Treoppdrag min første store nettside",
     image: "/img/post-3.png",
     backgroundSize: "cover",
   },
   {
     id: 4,
     title: "Nordmind AI helper for businesses",
+    titleNo: "Nordmind KI-hjelper for bedrifter",
     image: "/img/nordmind.png",
     backgroundSize: "80% auto",
     backgroundColor: "#2F3A46",
@@ -43,6 +49,7 @@ const slides: SlideItem[] = [
   {
     id: 5,
     title: "Elite Rollespill",
+    titleNo: "Elite Rollespill",
     image: "/img/eliterollespill.png",
     backgroundSize: "180% auto",
     backgroundColor: "#2F3A46",
@@ -50,6 +57,7 @@ const slides: SlideItem[] = [
 ];
 
 export default function ImageSlider() {
+  const { locale } = useLocale();
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(2);
@@ -178,7 +186,9 @@ export default function ImageSlider() {
                 onClick={() => goToSlide(index)}
               >
                 <div className={styles.cardInner}>
-                  <span className={styles.cardTitle}>{slide.title}</span>
+                  <span className={styles.cardTitle}>
+                    {locale === "no" ? slide.titleNo : slide.title}
+                  </span>
                 </div>
               </div>
               <div

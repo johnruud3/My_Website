@@ -1,7 +1,9 @@
 "use client";
+import { useLocale } from "./LocaleProvider";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { t } = useLocale();
 
   return (
     <footer className="w-full bg-black text-white">
@@ -10,17 +12,18 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-8">
           {/* About Section */}
           <div>
-            <h3 className="text-lg font-semibold text-[#34C1E3] mb-4">About</h3>
+            <h3 className="text-lg font-semibold text-[#34C1E3] mb-4">
+              {t("footer.about")}
+            </h3>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Frontend developer passionate about creating beautiful and
-              functional web experiences.
+              {t("footer.aboutText")}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
             <h3 className="text-lg font-semibold text-[#34C1E3] mb-4">
-              Quick Links
+              {t("footer.quickLinks")}
             </h3>
             <ul className="space-y-2">
               <li>
@@ -28,7 +31,7 @@ export default function Footer() {
                   href="#"
                   className="text-gray-400 hover:text-[#34C1E3] text-sm transition-colors"
                 >
-                  Projects Overview
+                  {t("nav.projects")}
                 </a>
               </li>
               <li>
@@ -36,7 +39,7 @@ export default function Footer() {
                   href="/contact"
                   className="text-gray-400 hover:text-[#34C1E3] text-sm transition-colors"
                 >
-                  Contact
+                  {t("nav.contact")}
                 </a>
               </li>
             </ul>
@@ -45,7 +48,7 @@ export default function Footer() {
           {/* Contact Info */}
           <div>
             <h3 className="text-lg font-semibold text-[#34C1E3] mb-4">
-              Connect
+              {t("footer.connect")}
             </h3>
             <div className="flex gap-4">
               {/* GitHub */}
@@ -110,10 +113,10 @@ export default function Footer() {
         <div className="border-t border-gray-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-500 text-sm">
-              © {currentYear} John-Kristian G. Ruud. All rights reserved.
+              © {currentYear} John-Kristian G. Ruud. {t("footer.rights")}
             </p>
             <p className="text-gray-500 text-sm">
-              Built with Next.js & Tailwind CSS
+              {t("footer.builtWith")}
             </p>
           </div>
         </div>

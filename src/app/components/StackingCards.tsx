@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import styles from "./StackingCards.module.css";
+import { useLocale } from "./LocaleProvider";
 
 /** Per tile: path + optional fit (overrides grid CSS for that image only). */
 type MediaImageItem = {
@@ -60,7 +61,7 @@ const cards: CardItem[] = [
       </>
     ),
     description:
-      "I’m John, a developer and creator focused on building modern, practical solutions that people actually use. I enjoy taking ideas from concept to reality whether it’s designing clean user interfaces, developing full platforms, or experimenting with new technology.\n\n My work is driven by a mix of creativity and problem-solving. I like building systems that are not only functional, but also efficient and scalable, such as automated platforms, user dashboards, and AI-powered tools. I’m especially interested in projects where I can simplify complex processes and turn them into something intuitive and easy to use.\n\n Over time, I’ve worked on everything from branding and logo design to full web applications and service platforms. I enjoy having control over the entire process, from idea and design to development and deployment.\n\n Right now, I’m focused on growing my own projects and building solutions that can scale both technically and as businesses. I’m always looking for new challenges and opportunities to create something meaningful, whether working in a team or independently.",
+      "I’m John, a developer and creator focused on building modern, practical solutions that people actually use. I enjoy taking ideas from concept to reality whether it’s designing clean user interfaces, developing full platforms, or experimenting with new technology. I have a background in both graphic design and frontend development.\n\n My work is driven by a mix of creativity and problem-solving. I like building systems that are not only functional, but also efficient and scalable, such as automated platforms, user dashboards, and AI-powered tools. I’m especially interested in projects where I can simplify complex processes and turn them into something intuitive and easy to use.\n\n Over time, I’ve worked on everything from branding and logo design to full web applications and service platforms. I enjoy having control over the entire process, from idea and design to development and deployment.\n\n Right now, I’m focused on growing my own projects and building solutions that can scale both technically and as businesses. I’m always looking for new challenges and opportunities to create something meaningful, whether working in a team or independently.",
     color: "linear-gradient(135deg, #050b16, #146C82, #050b16)",
     image: "/img/Portrett1.jpg",
   },
@@ -145,6 +146,7 @@ const cards: CardItem[] = [
 const LEFT_OFFSET = 30;
 
 export default function StackingCards() {
+  const { t, locale } = useLocale();
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -159,6 +161,56 @@ export default function StackingCards() {
   // Detect if mobile
   const isMobile = () =>
     typeof window !== "undefined" && window.innerWidth <= 768;
+
+  const localizedNoByCardId: Record<
+    number,
+    { title: React.ReactNode; description: string }
+  > = {
+    1: {
+      title: (
+        <>
+          Jeg heter <span style={{ color: "#34C1E3" }}>John</span>
+        </>
+      ),
+      description:
+        "Jeg heter John, og jeg bygger moderne og praktiske digitale løsninger som folk faktisk bruker. Jeg liker a ta ideer fra konsept til ferdige produkter, enten det handler om ren UI, komplette plattformer eller ny teknologi. Jeg har skole bakgrunn i både grafisk design og frontend utvikling.\n\nArbeidet mitt er en kombinasjon av kreativitet og prøblemlosning. Jeg fokuserer på løsninger som er funksjonelle, effektive og skalerbare, for eksempel automatiserte plattformer, dashboards og KI-drevne verktoy.\n\nJeg har jobbet med alt fra branding og logodesign til komplette webapplikasjoner og tjenesteplattformer. Jeg liker a ha kontroll på hele prosessen fra ide og design til utvikling og lansering.\n\nAkkurat nå bygger jeg egne prosjekter videre og jobber med løsninger som kan vokse både teknisk og kommersielt.",
+    },
+    2: {
+      title: "Matboksen",
+      description:
+        "Matboksen er en moderne KI-app for kosthold og trening, laget for a gjøre en sunn hverdag enklere. Appen er i Testflight og nærmer seg full lansering.\n\nDu kan ta bilde av maten din, og KI analyserer raskt om måltidet passer din hverdagsstruktur. Deretter blir det automatisk loggført i planen din på sekunder. Appen har ogsa en KI-assistent som hjelper brukeren med a justere planen underveis.\n\nAppen er bygget med Next.js og Tailwind.",
+    },
+    3: {
+      title: "JobLaunch",
+      description:
+        "JobLaunch var den første logoen jeg designet helt fra bunnen av for et profesjonelt rekrutteringsselskap. Konseptet er inspirert av en rakettoppskytning, og formen symboliserer fart, ambisjon og nye muligheter.\n\nLogoen representerer overgangen fra jobbsøking til å lande riktig stilling. I kjernen handler JobLaunch om vekst, retning og fremdrift, og uttrykket er laget for a være både motiverende og profesjonelt.",
+    },
+    4: {
+      title: "Treoppdrag",
+      description:
+        "Treoppdrag.no er en plattform som kobler kunder i hele Norge med profesjonelle og forsikrede trefellere på en rask og trygg mate.\n\nKunder kan opprette konto og sende inn oppdrag på få steg. I bakgrunnen fordeler et egenutviklet round-robin-system oppdrag basert på lokasjon og tilgjengelighet.\n\nFor fagfolk tilbyr plattformen et kraftig dashboard for handtering av oppdrag og arbeidsflyt. For å sikre kvalitet og trygghet godkjennes kun aktorer med gyldig forsikring.\n\nTreoppdrag.no er bygget med Next.js og Tailwind.",
+    },
+    5: {
+      title: "NordMind",
+      description:
+        "NordMind er en webapplikasjon som forenkler håndtering av e-post, planlegging og teamkommunikasjon. Med integrasjoner som Google Mail og Google Calendar samles meldinger, planer og oppgaver i ett strukturert system.\n\nEn innebygd KI-assistent kan hjelpe med å skrive e-poster, lage kalenderplaner og automatisere rutineoppgaver. NordMind kan også videreformidle viktige oppdateringer fra e-post til teamplattformer via en godkjenningsbasert innlogging på for eksempel slack eller discord.\n\nPlattformen er fleksibel og kan tilpasses ulike arbeidsprosesser. Den vil også inkludere KI-innsikt som analyserer lignende plattformer og innhold på nett for å foreslå forbedringer, inkludert SEO og innholdsproduksjon med godkjenning for publisering.\n\nNordmind.no er laget med Next.js og Tailwind.",
+    },
+    6: {
+      title: "Elite Rollespill",
+      description:
+        "Elite Rollespill er en Norsk rollespill-server for Grand Theft Auto 5, der spillere kan spille ut realistiske scenarioer i et norsk miljø. Hele spillverdenen er bygget opp som Oslo, med norske gateskilt, navn og detaljer for høy innlevelse.\n\nDette er et ambisiøst prosjekt med et sterkt team av utviklere og designere.\n\nElite Rollespill er bygget med Lua-skript og MySQL-database.",
+    },
+  };
+
+  const getLocalizedCardTitle = (card: CardItem): React.ReactNode => {
+    if (locale !== "no") return card.title;
+    return localizedNoByCardId[card.id]?.title ?? card.title;
+  };
+
+  const getLocalizedCardDescription = (card: CardItem): React.ReactNode => {
+    if (locale !== "no") return card.description;
+    return localizedNoByCardId[card.id]?.description ?? card.description;
+  };
 
   // Animate cards when currentPage changes (desktop only)
   useEffect(() => {
@@ -353,8 +405,11 @@ export default function StackingCards() {
     <section className={styles.stackingSection} ref={containerRef}>
       <div className={styles.cardsWrapper}>
         {cards.map((card, index) => {
+          const localizedTitle = getLocalizedCardTitle(card);
+          const localizedDescription = getLocalizedCardDescription(card);
           const isExpanded = !!expandedCards[card.id];
-          const canCollapseDescription = typeof card.description === "string";
+          const canCollapseDescription =
+            typeof localizedDescription === "string";
 
           return (
             <div
@@ -373,7 +428,7 @@ export default function StackingCards() {
               {card.image || card.images?.length ? (
                 <div className={styles.cardContent}>
                   <div className={styles.cardTextWrapper}>
-                    <h2 className={styles.cardTitle}>{card.title}</h2>
+                    <h2 className={styles.cardTitle}>{localizedTitle}</h2>
                     <p
                       className={`${styles.cardDescription} ${
                         canCollapseDescription && !isExpanded
@@ -381,7 +436,7 @@ export default function StackingCards() {
                           : ""
                       }`}
                     >
-                      {card.description}
+                      {localizedDescription}
                     </p>
                     {canCollapseDescription && (
                       <button
@@ -392,7 +447,9 @@ export default function StackingCards() {
                           toggleCardExpansion(card.id);
                         }}
                       >
-                        {isExpanded ? "Read less" : "Read more..."}
+                        {isExpanded
+                          ? t("stacking.readLess")
+                          : t("stacking.readMore")}
                       </button>
                     )}
                     {card.link && (
@@ -403,7 +460,7 @@ export default function StackingCards() {
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        Visit site
+                        {t("stacking.visitSite")}
                       </a>
                     )}
                   </div>
@@ -425,7 +482,7 @@ export default function StackingCards() {
                           >
                             <img
                               src={item.src}
-                              alt={`${typeof card.title === "string" ? card.title : "Project"} image ${mediaIndex + 1}`}
+                              alt={`${typeof localizedTitle === "string" ? localizedTitle : "Project"} image ${mediaIndex + 1}`}
                               className={styles.cardMediaImage}
                               style={
                                 item.objectFit || item.objectPosition
@@ -450,7 +507,9 @@ export default function StackingCards() {
                   {/* Scroll indicator for first card */}
                   {index === 0 && currentPage === 0 && (
                     <div className={styles.scrollIndicator}>
-                      <p className={styles.scrollText}>Scroll for more</p>
+                      <p className={styles.scrollText}>
+                        {t("stacking.scrollForMore")}
+                      </p>
                       <svg
                         className={styles.scrollArrow}
                         viewBox="0 0 24 24"
@@ -469,7 +528,7 @@ export default function StackingCards() {
                 </div>
               ) : (
                 <>
-                  <h2 className={styles.cardTitle}>{card.title}</h2>
+                  <h2 className={styles.cardTitle}>{localizedTitle}</h2>
                   <p
                     className={`${styles.cardDescription} ${
                       canCollapseDescription && !isExpanded
@@ -477,7 +536,7 @@ export default function StackingCards() {
                         : ""
                     }`}
                   >
-                    {card.description}
+                    {localizedDescription}
                   </p>
                   {canCollapseDescription && (
                     <button
@@ -488,7 +547,9 @@ export default function StackingCards() {
                         toggleCardExpansion(card.id);
                       }}
                     >
-                      {isExpanded ? "Read less" : "Read more"}
+                      {isExpanded
+                        ? t("stacking.readLess")
+                        : t("stacking.readMore")}
                     </button>
                   )}
                   {card.link && (
@@ -499,13 +560,15 @@ export default function StackingCards() {
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      Visit site
+                      {t("stacking.visitSite")}
                     </a>
                   )}
                   {/* Scroll indicator for first card */}
                   {index === 0 && currentPage === 0 && (
                     <div className={styles.scrollIndicator}>
-                      <p className={styles.scrollText}>Scroll for more</p>
+                      <p className={styles.scrollText}>
+                        {t("stacking.scrollForMore")}
+                      </p>
                       <svg
                         className={styles.scrollArrow}
                         viewBox="0 0 24 24"
