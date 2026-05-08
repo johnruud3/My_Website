@@ -81,7 +81,8 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.scrollIndicator}>
+        <ImageSlider />
+        <div className={styles.scrollIndicatorInline}>
           <p className={styles.scrollText}>{t("home.myWork")}</p>
           <svg
             className={styles.scrollArrow}
@@ -97,8 +98,6 @@ export default function Home() {
             />
           </svg>
         </div>
-
-        <ImageSlider />
         <div className="mb-32"></div>
         <StackingCards />
       </main>

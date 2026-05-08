@@ -13,6 +13,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "John-Kristian G. Ruud - Portfolio",
   description: "John-Kristian G. Ruud - Frontend utvikler og grafisk designer",
+  icons: {
+    icon: "/favicon.png?v=2",
+  },
 };
 
 export default function RootLayout({
