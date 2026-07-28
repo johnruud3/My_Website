@@ -56,6 +56,15 @@ function mediaGridClassName(modifier?: MediaGridModifier): string {
   return "";
 }
 
+/** Mobile cable curves — varied so each project feels unique. */
+const mobileCableCurves = [
+  { d: "M 50 98 C 50 72, 28 42, 28 -8" },
+  { d: "M 50 98 C 52 68, 74 38, 74 -8" },
+  { d: "M 50 98 C 42 78, 62 48, 36 -6" },
+  { d: "M 48 98 C 58 70, 40 36, 68 -8" },
+  { d: "M 50 98 C 38 80, 70 52, 42 -10" },
+] as const;
+
 const caseStudies: CaseStudyItem[] = [
   {
     id: 1,
@@ -121,7 +130,7 @@ const caseStudies: CaseStudyItem[] = [
       "Treoppdrag.no er en plattform som kobler kunder i hele Norge med profesjonelle og forsikrede trefellere på en rask og trygg måte.\n\nKunder kan opprette konto og sende inn oppdrag på få steg. I bakgrunnen fordeler et egenutviklet round-robin-system oppdrag basert på trefellernes lokasjon og tilgjengelighet.\n\nFor fagfolk tilbyr plattformen et kraftig dashboard for håndtering av oppdrag og arbeidsflyt. For å sikre kvalitet og trygghet godkjennes kun aktører med gyldig forsikring. Her har jeg utviklet logoen, og nettsiden har jeg laget i samarbeid med det fantastiske teamet vårt!\n\nTreoppdrag.no er bygget med Next.js og Tailwind.",
     link: "https://treoppdrag.no",
     images: [
-      { src: "/img/ads-1.png", objectFit: "contain" },
+      { src: "/img/ads-1.png", objectFit: "cover" },
       { src: "/img/treoppdrag-admin.png", objectFit: "cover" },
       { src: "/img/treoppdrag-burgermenu.png", objectFit: "cover" },
       { src: "/img/post-3.png", objectFit: "cover" },
@@ -163,7 +172,7 @@ const caseStudies: CaseStudyItem[] = [
       { src: "/img/dashboard_nordmind.png", objectFit: "cover" },
       { src: "/img/calendar_nordmind.png", objectFit: "cover" },
       { src: "/img/landing_nordmind.png", objectFit: "cover" },
-      { src: "/img/dashboard2_nordmind.png", objectFit: "contain" },
+      { src: "/img/dashboard2_nordmind.png", objectFit: "cover" },
     ],
     mediaGridModifier: "nordmind",
   },
@@ -246,6 +255,9 @@ export default function ProjectCaseStudies() {
           const titleLabel =
             typeof title === "string" ? title : `Project ${study.id}`;
           const reverse = index % 2 === 1;
+          const powered = index > 0;
+          const mobileCurve =
+            mobileCableCurves[(index - 1) % mobileCableCurves.length];
 
           return (
             <article
@@ -256,6 +268,8 @@ export default function ProjectCaseStudies() {
                 sectionRefs.current[index] = el;
               }}
               className={`${styles.study} ${reverse ? styles.studyReverse : ""} ${
+                index === 0 ? styles.studyOverlap : ""
+              } ${powered ? styles.studyPowered : ""} ${
                 visibleIds[study.id] ? styles.studyVisible : ""
               }`}
             >
@@ -264,6 +278,68 @@ export default function ProjectCaseStudies() {
                   <CaseStudyMedia study={study} titleLabel={titleLabel} />
                 </div>
               </div>
+
+              {powered && mobileCurve && (
+                <div className={styles.powerCable} aria-hidden>
+                  <svg
+                    className={styles.powerCableSvg}
+                    viewBox="0 0 100 100"
+                    preserveAspectRatio="none"
+                  >
+                    <defs>
+                      <filter
+                        id={`cable-blur-${study.id}`}
+                        x="-40%"
+                        y="-40%"
+                        width="180%"
+                        height="180%"
+                      >
+                        <feGaussianBlur stdDeviation="1.4" />
+                      </filter>
+                    </defs>
+                    {/* Desktop: curved path copy → media */}
+                    <path
+                      className={`${styles.powerCableBase} ${styles.powerCablePathDesktop}`}
+                      d="M 92 48 C 72 16, 28 84, 8 52"
+                      fill="none"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                    <path
+                      className={`${styles.powerCableGlow} ${styles.powerCablePathDesktop}`}
+                      d="M 92 48 C 72 16, 28 84, 8 52"
+                      fill="none"
+                      vectorEffect="non-scaling-stroke"
+                      filter={`url(#cable-blur-${study.id})`}
+                    />
+                    <path
+                      className={`${styles.powerCablePulse} ${styles.powerCablePathDesktop}`}
+                      d="M 92 48 C 72 16, 28 84, 8 52"
+                      fill="none"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                    {/* Mobile: unique curved path per project */}
+                    <path
+                      className={`${styles.powerCableBase} ${styles.powerCablePathMobile}`}
+                      d={mobileCurve.d}
+                      fill="none"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                    <path
+                      className={`${styles.powerCableGlow} ${styles.powerCablePathMobile}`}
+                      d={mobileCurve.d}
+                      fill="none"
+                      vectorEffect="non-scaling-stroke"
+                      filter={`url(#cable-blur-${study.id})`}
+                    />
+                    <path
+                      className={`${styles.powerCablePulse} ${styles.powerCablePathMobile} ${styles.powerCablePulseMobile}`}
+                      d={mobileCurve.d}
+                      fill="none"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                  </svg>
+                </div>
+              )}
 
               <div className={styles.copyColumn}>
                 <h3 className={styles.studyTitle}>{title}</h3>

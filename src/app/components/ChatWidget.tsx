@@ -14,6 +14,35 @@ function makeId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
+function RobotFaceIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 48 48"
+      fill="none"
+      aria-hidden
+    >
+      <circle cx="24" cy="6" r="2.2" fill="#34C1E3" />
+      <path
+        d="M24 8.2v4.2"
+        stroke="#34C1E3"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+      />
+      <circle cx="16.5" cy="23" r="3.6" fill="#146C82" />
+      <circle cx="31.5" cy="23" r="3.6" fill="#146C82" />
+      <circle cx="17.7" cy="21.8" r="1.1" fill="white" />
+      <circle cx="32.7" cy="21.8" r="1.1" fill="white" />
+      <path
+        d="M15.5 30c2.4 3.4 5.5 5 8.5 5s6.1-1.6 8.5-5"
+        stroke="#34C1E3"
+        strokeWidth="2.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export default function ChatWidget() {
   const { t, locale } = useLocale();
   const [open, setOpen] = useState(false);
@@ -137,30 +166,7 @@ export default function ChatWidget() {
           onClick={() => setOpen(true)}
           aria-label={t("chat.open")}
         >
-          <svg
-            className={styles.launcherIcon}
-            viewBox="0 0 48 48"
-            fill="none"
-            aria-hidden
-          >
-            <circle cx="24" cy="6" r="2.2" fill="#34C1E3" />
-            <path
-              d="M24 8.2v4.2"
-              stroke="#34C1E3"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-            />
-            <circle cx="16.5" cy="23" r="3.6" fill="#146C82" />
-            <circle cx="31.5" cy="23" r="3.6" fill="#146C82" />
-            <circle cx="17.7" cy="21.8" r="1.1" fill="white" />
-            <circle cx="32.7" cy="21.8" r="1.1" fill="white" />
-            <path
-              d="M15.5 30c2.4 3.4 5.5 5 8.5 5s6.1-1.6 8.5-5"
-              stroke="#34C1E3"
-              strokeWidth="2.8"
-              strokeLinecap="round"
-            />
-          </svg>
+          <RobotFaceIcon className={styles.launcherIcon} />
         </button>
       </div>
     );
@@ -184,20 +190,38 @@ export default function ChatWidget() {
       </div>
 
       <div className={styles.messages} ref={listRef}>
-        <div className={`${styles.bubble} ${styles.bubbleAssistant}`}>
-          {t("chat.welcome")}
+        <div className={styles.assistantBlock}>
+          <div className={`${styles.bubble} ${styles.bubbleAssistant}`}>
+            {t("chat.welcome")}
+          </div>
+          <span className={styles.seenBadge} aria-hidden>
+            <RobotFaceIcon className={styles.seenIcon} />
+          </span>
         </div>
 
-        {messages.map((msg) => (
-          <div
-            key={msg.id}
-            className={`${styles.bubble} ${
-              msg.role === "user" ? styles.bubbleUser : styles.bubbleAssistant
-            }`}
-          >
-            {msg.content}
-          </div>
-        ))}
+        {messages.map((msg) => {
+          if (msg.role === "user") {
+            return (
+              <div
+                key={msg.id}
+                className={`${styles.bubble} ${styles.bubbleUser}`}
+              >
+                {msg.content}
+              </div>
+            );
+          }
+
+          return (
+            <div key={msg.id} className={styles.assistantBlock}>
+              <div className={`${styles.bubble} ${styles.bubbleAssistant}`}>
+                {msg.content}
+              </div>
+              <span className={styles.seenBadge} aria-hidden>
+                <RobotFaceIcon className={styles.seenIcon} />
+              </span>
+            </div>
+          );
+        })}
 
         {loading && <p className={styles.typing}>{t("chat.thinking")}</p>}
         {error && (

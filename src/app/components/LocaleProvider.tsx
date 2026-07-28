@@ -168,7 +168,7 @@ const translations: Record<Locale, Record<TranslationKey, string>> = {
     "home.designer": "designer",
     "home.myWork": "mitt arbeid",
     "home.selectedWork": "Utvalgt arbeid",
-    "home.caseStudiesTitle": "Laget av dedikasjon, levert med kvalitet.",
+    "home.caseStudiesTitle": "Laget med dedikasjon og levert med kvalitet.",
     "home.ctaTitle": "Har du en ide?",
     "home.ctaText":
       "Jeg er alltid åpen for samarbeid med spennende prosjekter. La oss bygge noe bra sammen!",
@@ -180,7 +180,8 @@ const translations: Record<Locale, Record<TranslationKey, string>> = {
     "chat.open": "Åpne chat",
     "chat.close": "Lukk chat",
     "chat.title": "Spør om John",
-    "chat.subtitle": "Raske svar om arbeid og kontakt",
+    "chat.subtitle":
+      "John sin hjelper har mange svar! (Men fortsatt ny. Så vær ",
     "chat.welcome":
       "Hei! Jeg kan hjelpe med hvordan du kontakter John, hva han jobber med, og prosjektene hans.",
     "chat.askMe": "Still meg et spørsmål",

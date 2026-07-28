@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import styles from "./ImageSlider.module.css";
 import { useLocale } from "./LocaleProvider";
+import { slowScrollToElement } from "../lib/slowScroll";
 
 interface SlideItem {
   id: number;
@@ -33,6 +34,7 @@ const slides: SlideItem[] = [
     titleNo: "Første store logodesign",
     image: "/img/joblaunchLogo.jpg",
     backgroundSize: "70% auto",
+    backgroundColor: "#ffffff",
   },
   {
     id: 3,
@@ -177,11 +179,12 @@ export default function ImageSlider() {
     const target = document.getElementById(targetId);
     if (!target) return;
 
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    // Slower than native smooth so visitors can follow the motion.
+    slowScrollToElement(target, { durationMs: 2000, offsetPx: 104 });
   };
 
   return (
-    <section className={styles.main}>
+    <section id="work-carousel" className={styles.main}>
       <h2 className={styles.main__heading}></h2>
 
       <div

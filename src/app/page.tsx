@@ -3,10 +3,16 @@
 import ImageSlider from "./components/ImageSlider";
 import ProjectCaseStudies from "./components/ProjectCaseStudies";
 import { useLocale } from "./components/LocaleProvider";
+import { slowScrollToElement } from "./lib/slowScroll";
 
 export default function Home() {
   const { t } = useLocale();
 
+  const scrollToCarousel = () => {
+    const carousel = document.getElementById("work-carousel");
+    if (!carousel) return;
+    slowScrollToElement(carousel, { durationMs: 1200, offsetPx: 96 });
+  };
   return (
     <div className="min-h-screen bg-main font-sans pt-20 md:pt-24">
       <main className="w-full">
@@ -80,11 +86,14 @@ export default function Home() {
             </div>
           </div>
 
-          <div
-            className="relative z-10 mt-12 flex flex-col items-center gap-2"
+          <button
+            type="button"
+            onClick={scrollToCarousel}
+            className="relative z-10 mt-12 flex cursor-pointer flex-col items-center gap-2 border-0 bg-transparent p-0"
             style={{ animation: "bounceY 2s infinite" }}
+            aria-label={t("home.myWork")}
           >
-            <p className="text-xs font-medium uppercase tracking-[0.16em] text-white/70">
+            <p className="text-xs font-medium uppercase tracking-[0.16em] text-white/70 transition-colors hover:text-white">
               {t("home.myWork")}
             </p>
             <svg
@@ -101,7 +110,7 @@ export default function Home() {
                 d="M19 9l-7 7-7-7"
               />
             </svg>
-          </div>
+          </button>
         </section>
 
         <ImageSlider />
