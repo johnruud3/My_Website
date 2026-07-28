@@ -189,7 +189,7 @@ const translations: Record<Locale, Record<TranslationKey, string>> = {
     "chat.thinking": "Tenker...",
     "chat.error": "Noe gikk galt. Prøv igjen.",
     "chat.chipContact": "Hvordan kontakter jeg John?",
-    "chat.chipAbout": "Hva jobber John med?",
+    "chat.chipAbout": "Hvem er John?",
     "chat.chipProjects": "Hvilke prosjekter har John laget?",
   },
 };
