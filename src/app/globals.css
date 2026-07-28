@@ -3,15 +3,24 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --brand-navy: #050b16;
+  --brand-teal: #146c82;
+  --brand-cyan: #34c1e3;
+  --brand-grey: #6e7175;
+  --brand-glass: rgba(5, 11, 22, 0.55);
+  --brand-border: rgba(52, 193, 227, 0.2);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-cyan: var(--brand-cyan);
+  --color-brand-grey: var(--brand-grey);
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-inter), system-ui, sans-serif;
 }
-
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -25,16 +34,20 @@ body {
 }
 
 .bg-main {
-  background: linear-gradient(135deg, #050b16, #146C82, #34C1E3);
-
+  background: linear-gradient(
+    135deg,
+    var(--brand-navy),
+    var(--brand-teal),
+    var(--brand-cyan)
+  );
 }
 
 .text.grey {
-  color: #6E7175
+  color: var(--brand-grey);
 }
 
 .text.blue {
-  color: #6E7175
+  color: var(--brand-cyan);
 }
 
 @keyframes slide {
@@ -44,6 +57,27 @@ body {
 
   100% {
     transform: translateX(100%);
+  }
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceY {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
   }
 }
 

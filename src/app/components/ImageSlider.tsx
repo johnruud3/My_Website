@@ -7,6 +7,7 @@ import { useLocale } from "./LocaleProvider";
 
 interface SlideItem {
   id: number;
+  targetId: string;
   title: string;
   titleNo: string;
   image: string;
@@ -18,6 +19,7 @@ interface SlideItem {
 const slides: SlideItem[] = [
   {
     id: 1,
+    targetId: "matboksen",
     title: "Matboksen my food tracking app",
     titleNo: "Matboksen matsporingsapp",
     image: "/img/matboksen.png",
@@ -26,6 +28,7 @@ const slides: SlideItem[] = [
   },
   {
     id: 2,
+    targetId: "joblaunch",
     title: "My first big logo design",
     titleNo: "Første store logodesign",
     image: "/img/joblaunchLogo.jpg",
@@ -33,6 +36,7 @@ const slides: SlideItem[] = [
   },
   {
     id: 3,
+    targetId: "treoppdrag",
     title: "Treoppdrag my first big website",
     titleNo: "Treoppdrag min første store nettside",
     image: "/img/post-3.png",
@@ -40,6 +44,7 @@ const slides: SlideItem[] = [
   },
   {
     id: 4,
+    targetId: "nordmind",
     title: "Nordmind AI helper for businesses",
     titleNo: "Nordmind KI-hjelper for bedrifter",
     image: "/img/nordmind.png",
@@ -48,6 +53,7 @@ const slides: SlideItem[] = [
   },
   {
     id: 5,
+    targetId: "eliterollespill",
     title: "Elite Rollespill",
     titleNo: "Elite Rollespill",
     image: "/img/eliterollespill.png",
@@ -64,6 +70,7 @@ export default function ImageSlider() {
   const [isDragging, setIsDragging] = useState(false);
   const dragStartX = useRef(0);
   const startIndex = useRef(2);
+  const didDrag = useRef(false);
 
   const cardCount = slides.length;
 
@@ -99,6 +106,7 @@ export default function ImageSlider() {
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
+    didDrag.current = false;
     dragStartX.current = e.clientX;
     startIndex.current = activeIndex;
   };
@@ -107,6 +115,10 @@ export default function ImageSlider() {
     if (!isDragging) return;
 
     const deltaX = e.clientX - dragStartX.current;
+    if (Math.abs(deltaX) > 8) {
+      didDrag.current = true;
+    }
+
     const indexChange = Math.round(-deltaX / 100);
     const newIndex = Math.max(
       0,
@@ -124,6 +136,7 @@ export default function ImageSlider() {
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setIsDragging(true);
+    didDrag.current = false;
     dragStartX.current = e.touches[0].clientX;
     startIndex.current = activeIndex;
   };
@@ -132,7 +145,13 @@ export default function ImageSlider() {
     if (!isDragging) return;
 
     const deltaX = e.touches[0].clientX - dragStartX.current;
-    const indexChange = Math.round(-deltaX / 100);
+
+    // Prefer vertical page scroll unless the gesture is clearly horizontal.
+    if (Math.abs(deltaX) < 28) return;
+
+    didDrag.current = true;
+
+    const indexChange = Math.round(-deltaX / 90);
     const newIndex = Math.max(
       0,
       Math.min(cardCount - 1, startIndex.current + indexChange),
@@ -149,6 +168,16 @@ export default function ImageSlider() {
 
   const goToSlide = (index: number) => {
     setActiveIndex(index);
+  };
+
+  const scrollToProject = (targetId: string, index: number) => {
+    if (didDrag.current) return;
+
+    setActiveIndex(index);
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
@@ -183,7 +212,16 @@ export default function ImageSlider() {
                   backgroundPosition: slide.backgroundPosition || "center",
                   backgroundColor: slide.backgroundColor,
                 }}
-                onClick={() => goToSlide(index)}
+                onClick={() => scrollToProject(slide.targetId, index)}
+                role="link"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    scrollToProject(slide.targetId, index);
+                  }
+                }}
+                aria-label={`Go to ${slide.title}`}
               >
                 <div className={styles.cardInner}>
                   <span className={styles.cardTitle}>

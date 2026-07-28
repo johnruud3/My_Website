@@ -5,6 +5,7 @@ import "./globals.css";
 import Footer from "./components/Footer";
 import { LocaleProvider } from "./components/LocaleProvider";
 import SiteHeader from "./components/SiteHeader";
+import ChatWidget from "./components/ChatWidget";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
           <SiteHeader />
           {children}
           <Footer />
+          <ChatWidget />
         </LocaleProvider>
       </body>
     </html>

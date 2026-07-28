@@ -1,6 +1,6 @@
 .main {
   max-width: 100%;
-  padding: 2em 0;
+  padding: 1.5em 0 0.5em;
   margin: 0 auto;
 }
 
@@ -15,8 +15,9 @@
 .carouselContainer {
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  height: 600px;
-  overflow: hidden;
+  height: 520px;
+  overflow-x: clip;
+  overflow-y: visible;
   perspective: 1500px;
   perspective-origin: center 40%;
   display: flex;
@@ -24,6 +25,7 @@
   justify-content: center;
   cursor: grab;
   user-select: none;
+  touch-action: pan-y;
 }
 
 .carouselContainer:active {
@@ -64,6 +66,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  border: 1px solid rgba(52, 193, 227, 0.18);
 }
 
 .card::before {
@@ -111,33 +114,51 @@
   display: flex;
   justify-content: center;
   gap: 0.75rem;
-  margin-top: 2rem;
+  margin-top: 1.75rem;
 }
 
 .dot {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  border: 2px solid #0f4c5c;
+  border: 2px solid rgba(15, 76, 92, 0.85);
   background: transparent;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .dot:hover {
-  background: #34c1e3;
+  background: var(--brand-cyan);
+  border-color: var(--brand-cyan);
 }
 
 .dotActive {
-  background: #34c1e3;
+  background: var(--brand-cyan);
+  border-color: var(--brand-cyan);
 }
 
 @media (max-width: 768px) {
   .main {
     overflow-x: hidden;
+    padding-top: 0.5em;
   }
 
   .carouselContainer {
-    touch-action: pan-y;
+    height: 380px;
+    touch-action: pan-y pinch-zoom;
+  }
+
+  .carousel,
+  .cardWrapper {
+    width: 160px;
+    height: 230px;
+  }
+
+  .cardTitle {
+    font-size: 0.95rem;
+  }
+
+  .dots {
+    margin-top: 1.25rem;
   }
 }

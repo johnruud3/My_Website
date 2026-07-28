@@ -45,10 +45,28 @@ type TranslationKey =
   | "home.and"
   | "home.designer"
   | "home.myWork"
+  | "home.selectedWork"
+  | "home.caseStudiesTitle"
+  | "home.ctaTitle"
+  | "home.ctaText"
+  | "home.ctaButton"
   | "stacking.readMore"
   | "stacking.readLess"
   | "stacking.scrollForMore"
-  | "stacking.visitSite";
+  | "stacking.visitSite"
+  | "chat.open"
+  | "chat.close"
+  | "chat.title"
+  | "chat.subtitle"
+  | "chat.welcome"
+  | "chat.askMe"
+  | "chat.placeholder"
+  | "chat.send"
+  | "chat.thinking"
+  | "chat.error"
+  | "chat.chipContact"
+  | "chat.chipAbout"
+  | "chat.chipProjects";
 
 const translations: Record<Locale, Record<TranslationKey, string>> = {
   en: {
@@ -88,10 +106,30 @@ const translations: Record<Locale, Record<TranslationKey, string>> = {
     "home.and": "and",
     "home.designer": "designer",
     "home.myWork": "my work",
+    "home.selectedWork": "Selected work",
+    "home.caseStudiesTitle": "Built for the love of the craft",
+    "home.ctaTitle": "Have an idea?",
+    "home.ctaText":
+      "I'm always open to collaborating on exciting projects. Let's build something amazing together!",
+    "home.ctaButton": "Get in Touch",
     "stacking.readMore": "Read more",
     "stacking.readLess": "Read less",
     "stacking.scrollForMore": "Scroll for more",
     "stacking.visitSite": "Visit site",
+    "chat.open": "Open chat",
+    "chat.close": "Close chat",
+    "chat.title": "Ask about John",
+    "chat.subtitle": "Quick answers about work & contact",
+    "chat.welcome":
+      "Hi! I can help with how to reach John, what he builds, and his projects.",
+    "chat.askMe": "Ask me a question",
+    "chat.placeholder": "Ask a question...",
+    "chat.send": "Send",
+    "chat.thinking": "Thinking...",
+    "chat.error": "Something went wrong. Please try again.",
+    "chat.chipContact": "How can I contact John?",
+    "chat.chipAbout": "What does John do?",
+    "chat.chipProjects": "What projects has John built?",
   },
   no: {
     "nav.home": "Hjem",
@@ -129,10 +167,30 @@ const translations: Record<Locale, Record<TranslationKey, string>> = {
     "home.and": "og",
     "home.designer": "designer",
     "home.myWork": "mitt arbeid",
+    "home.selectedWork": "Utvalgt arbeid",
+    "home.caseStudiesTitle": "Laget av dedikasjon, levert med kvalitet.",
+    "home.ctaTitle": "Har du en ide?",
+    "home.ctaText":
+      "Jeg er alltid åpen for samarbeid med spennende prosjekter. La oss bygge noe bra sammen!",
+    "home.ctaButton": "Ta kontakt",
     "stacking.readMore": "Les mer",
     "stacking.readLess": "Les mindre",
     "stacking.scrollForMore": "Bla for mer",
     "stacking.visitSite": "Besøk side",
+    "chat.open": "Åpne chat",
+    "chat.close": "Lukk chat",
+    "chat.title": "Spør om John",
+    "chat.subtitle": "Raske svar om arbeid og kontakt",
+    "chat.welcome":
+      "Hei! Jeg kan hjelpe med hvordan du kontakter John, hva han jobber med, og prosjektene hans.",
+    "chat.askMe": "Still meg et spørsmål",
+    "chat.placeholder": "Still et spørsmål...",
+    "chat.send": "Send",
+    "chat.thinking": "Tenker...",
+    "chat.error": "Noe gikk galt. Prøv igjen.",
+    "chat.chipContact": "Hvordan kontakter jeg John?",
+    "chat.chipAbout": "Hva jobber John med?",
+    "chat.chipProjects": "Hvilke prosjekter har John laget?",
   },
 };
 
