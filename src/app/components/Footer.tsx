@@ -28,7 +28,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="#"
+                  href="/projects"
                   className="text-gray-400 hover:text-[#34C1E3] text-sm transition-colors"
                 >
                   {t("nav.projects")}
@@ -115,9 +115,7 @@ export default function Footer() {
             <p className="text-gray-500 text-sm">
               © {currentYear} John-Kristian G. Ruud. {t("footer.rights")}
             </p>
-            <p className="text-gray-500 text-sm">
-              {t("footer.builtWith")}
-            </p>
+            <p className="text-gray-500 text-sm">{t("footer.builtWith")}</p>
           </div>
         </div>
       </div>
