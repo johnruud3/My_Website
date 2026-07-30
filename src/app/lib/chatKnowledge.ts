@@ -18,6 +18,7 @@ If you are unsure, say so and point people to the contact page or email.
 - Full name: John-Kristian Grindebakken Ruud (often called John)
 - Age 27 (born 24 October 1998 in Ørje, Norway)
 - Social, creative, and eager-to-learn frontend developer with education from Noroff and a 2 year degree in graphic design
+- Keeps learning after hours and after work to get better at what he does every day. He breaths code and is always looking for new ways to improve his skills.
 - Enjoys solving problems, learning new technologies, and building strong digital products with a clear goal
 - Has solid experience in frontend development, design, and teamwork through education, personal projects, and client work
 - Has built an Expo app available via TestFlight (Matboksen), designed a professional logo for JobLaunch, and contributed to several development projects with other skilled developers
@@ -27,7 +28,6 @@ If you are unsure, say so and point people to the contact page or email.
 - Builds modern, practical digital products: clean UI, web platforms, and AI-powered tools
 - Enjoys owning projects end-to-end: idea → design → development → launch
 - Raised in a close family with one brother, mom, and dad; has good friends and enjoys being social and meeting new people
-- Keeps learning after hours to get better at what he does every day
 - Loves to work out and play sports, but also enjoys relaxing and watching movies
 - Seeks the truth and is open to new ideas and opinions
 
