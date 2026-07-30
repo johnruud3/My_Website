@@ -128,8 +128,8 @@ const translations: Record<Locale, Record<TranslationKey, string>> = {
     "chat.thinking": "Thinking...",
     "chat.error": "Something went wrong. Please try again.",
     "chat.chipContact": "How can I contact John?",
-    "chat.chipAbout": "What does John do?",
-    "chat.chipProjects": "What projects has John built?",
+    "chat.chipAbout": "Who is John?",
+    "chat.chipProjects": "What is John's experience?",
   },
   no: {
     "nav.home": "Hjem",
@@ -180,8 +180,7 @@ const translations: Record<Locale, Record<TranslationKey, string>> = {
     "chat.open": "Åpne chat",
     "chat.close": "Lukk chat",
     "chat.title": "Spør om John",
-    "chat.subtitle":
-      "John sin hjelper har mange svar! (Men fortsatt ny. Så vær ",
+    "chat.subtitle": "John sin nye hjelper har mange svar! ",
     "chat.welcome":
       "Hei! Jeg kan hjelpe med hvordan du kontakter John, hva han jobber med, og prosjektene hans.",
     "chat.askMe": "Still meg et spørsmål",
@@ -191,7 +190,7 @@ const translations: Record<Locale, Record<TranslationKey, string>> = {
     "chat.error": "Noe gikk galt. Prøv igjen.",
     "chat.chipContact": "Hvordan kontakter jeg John?",
     "chat.chipAbout": "Hvem er John?",
-    "chat.chipProjects": "Hvilke prosjekter har John laget?",
+    "chat.chipProjects": "Hva er John sin erfaring?",
   },
 };
 

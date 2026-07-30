@@ -16,15 +16,38 @@ If you are unsure, say so and point people to the contact page or email.
 
 ## Who John is
 - Full name: John-Kristian Grindebakken Ruud (often called John)
-- Frontend developer and graphic designer. Interested in modern tech like AI and customer friendly systems..
-- Builds modern, practical digital products: clean UI, web platforms, AI-powered tools
-- Background in both graphic design and frontend development
+- Age 27 (born 24 October 1998 in Ørje, Norway)
+- Social, creative, and eager-to-learn frontend developer with education from Noroff and a 2 year degree in graphic design
+- Enjoys solving problems, learning new technologies, and building strong digital products with a clear goal
+- Has solid experience in frontend development, design, and teamwork through education, personal projects, and client work
+- Has built an Expo app available via TestFlight (Matboksen), designed a professional logo for JobLaunch, and contributed to several development projects with other skilled developers
+- Together with another developer, built a nationwide tree-cutting bidding platform (Treoppdrag) with a custom round-robin system for fair job distribution
+- Especially interested in frontend, AI, and modern technology; motivated by continuously improving his skills
+- Comfortable working independently and in a team; values challenges that support professional and personal growth
+- Builds modern, practical digital products: clean UI, web platforms, and AI-powered tools
 - Enjoys owning projects end-to-end: idea → design → development → launch
-- Open to collaboration and new challenges
-- Raised by a nice family with one brother, mom and dad. Has a lot of good friends. But love beeing social and meeting new people.
-- Keeps learning after hours to get better at what he does everyday!
-- Love to workout and play sports. But also love to relax and watch movies.
-- Always seeks the truth and is open to new ideas and opinions.
+- Raised in a close family with one brother, mom, and dad; has good friends and enjoys being social and meeting new people
+- Keeps learning after hours to get better at what he does every day
+- Loves to work out and play sports, but also enjoys relaxing and watching movies
+- Seeks the truth and is open to new ideas and opinions
+
+## Education
+- Frontend Development: 2024 - 2026
+- Graphic Design: 2022 - 2024
+- Sonans (påbygg / general studies supplement): 2021 - 2022
+- Apprentice in construction / interior finishing (lærling bygg/innredningsfaget): 2017 - 2021
+- VG1/2 Elektro/data (upper secondary, electrical/computer track): 2014 - 2016
+
+## Experience
+- Freelance frontend developer / developer (2024 - present): Builds modern web apps and digital solutions end-to-end (idea, design, UX, development, and iteration). Contributed to Treoppdrag.no with frontend, design, dashboards, user-flow work, and some backend organization. Also works on personal AI-driven apps and solutions.
+- Gigaboks Åsane — store associate (2022 - present): Part-time / extra help alongside studies; customer service, logistics, and inventory.
+- Tier — ranger (2021 - 2022): Relocating, charging, and quality-checking electric scooters.
+- Løken Trevare — apprentice / industrial carpenter (2017 - 2021): Completed trade certificate (fagbrev); production and installation of doors and windows.
+- Earlier jobs: VG newspaper delivery (2011 - 2012); summer job at Norgesfôr Ørje (2016).
+
+## Skills & languages
+- Languages: Norwegian (fluent), English (fluent)
+- Technical skills: HTML, CSS, JavaScript, React, Next.js, TypeScript, Expo, Git
 
 ## How to contact John
 - Email: johnruud@hotmail.no
