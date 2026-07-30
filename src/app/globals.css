@@ -31,6 +31,11 @@
 
 body {
   color: var(--foreground);
+  overflow-x: clip;
+}
+
+html {
+  overflow-x: clip;
 }
 
 .bg-main {
@@ -85,6 +90,6 @@ body {
   html,
   body,
   .bg-main {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 }
